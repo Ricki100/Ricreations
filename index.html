@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ricardo Chitagu | Art Director</title>
+  <meta name="description" content="Ricardo Chitagu — Art Director & Advertising Creative. Ideas that move people.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --blue:      #1a10b0;
+      --blue-dark: #130c85;
+      --gold:      #f5c518;
+      --white:     #ffffff;
+      --off-white: #f7f7f9;
+      --text:      #1a1a2e;
+      --muted:     #6b7280;
+      --card-shadow: 0 4px 24px rgba(0,0,0,0.09);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      background: var(--white);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ─── HEADER ─── */
+    .site-header {
+      background: var(--blue);
+      padding: 56px 20px 110px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .site-header h1 {
+      color: var(--gold);
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .site-header p.tagline {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.95rem;
+      margin-top: 6px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── PROFILE ─── */
+    .profile {
+      text-align: center;
+      padding: 0 20px 48px;
+    }
+    .profile-photo-wrap {
+      margin-top: -80px;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 10;
+    }
+    .profile-photo-wrap img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 5px solid white;
+      object-fit: cover;
+      object-position: center 15%;
+      box-shadow: 0 8px 32px rgba(26,16,176,0.18);
+      background: var(--off-white);
+    }
+    .profile h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text);
+    }
+    .profile .role {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin: 4px 0 20px;
+    }
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gold);
+      color: var(--text);
+      text-decoration: none;
+      padding: 10px 26px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.05em;
+      gap: 8px;
+      transition: transform 0.18s, box-shadow 0.18s;
+      box-shadow: 0 2px 12px rgba(245,197,24,0.35);
+    }
+    .contact-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245,197,24,0.45);
+    }
+    .contact-btn svg { flex-shrink: 0; }
+
+    /* ─── SECTION HEADING ─── */
+    .section-heading {
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--blue);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .section-heading span {
+      display: inline-block;
+      position: relative;
+      padding: 0 16px;
+    }
+    .section-heading span::before,
+    .section-heading span::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+    }
+    .section-heading span::before { right: 100%; }
+    .section-heading span::after  { left: 100%; }
+
+    /* ─── BLOG CAROUSEL ─── */
+    .blog-section {
+      padding: 0 0 56px;
+      overflow: hidden;
+    }
+    .carousel-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+    /* Fade edges */
+    .carousel-wrap::before,
+    .carousel-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 80px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .carousel-wrap::before {
+      left: 0;
+      background: linear-gradient(to right, white, transparent);
+    }
+    .carousel-wrap::after {
+      right: 0;
+      background: linear-gradient(to left, white, transparent);
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      padding: 12px 40px;
+      animation: marquee 40s linear infinite;
+    }
+    .carousel-track:hover { animation-play-state: paused; }
+
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .blog-card {
+      width: 280px;
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      flex-shrink: 0;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.22s, box-shadow 0.22s;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(26,16,176,0.13);
+    }
+    .blog-card-img {
+      width: 100%;
+      height: 165px;
+      object-fit: cover;
+    }
+    .blog-card-img-placeholder {
+      width: 100%;
+      height: 165px;
+      background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .blog-card-img-placeholder svg { opacity: 0.35; }
+    .blog-card-body {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .blog-card-date {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 600;
+    }
+    .blog-card-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .blog-card-excerpt {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.55;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-top: auto;
+    }
+    .blog-card-tag {
+      display: inline-block;
+      background: rgba(26,16,176,0.07);
+      color: var(--blue);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    /* Loading / error states */
+    .carousel-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .carousel-state a {
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    /* ─── REVIEWS ─── */
+    .reviews-section {
+      background: var(--off-white);
+      padding: 56px 20px;
+    }
+    .reviews-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .reviews-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+    .review-card {
+      background: white;
+      border-radius: 14px;
+      padding: 22px 24px;
+      width: 280px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .review-stars {
+      color: var(--gold);
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+    }
+    .review-text {
+      font-size: 0.85rem;
+      color: #444;
+      line-height: 1.6;
+      font-style: italic;
+      flex: 1;
+    }
+    .review-author {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .review-author-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .reviews-cta-wrap {
+      text-align: center;
+    }
+    .reviews-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--blue);
+      color: var(--gold);
+      text-decoration: none;
+      padding: 13px 30px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: background 0.18s, transform 0.18s;
+    }
+    .reviews-cta:hover {
+      background: var(--blue-dark);
+      transform: translateY(-2px);
+    }
+    .google-g {
+      width: 18px;
+      height: 18px;
+      background: white;
+      border-radius: 3px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.75rem;
+      color: #4285F4;
+      flex-shrink: 0;
+    }
+
+    /* ─── FOOTER ─── */
+    .site-footer {
+      background: var(--blue);
+      padding: 28px 20px;
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: clamp(20px, 5vw, 50px);
+      flex-wrap: wrap;
+    }
+    .social-links a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: opacity 0.18s, transform 0.18s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .social-links a:hover {
+      opacity: 0.75;
+      transform: translateY(-2px);
+    }
+    .footer-copy {
+      text-align: center;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.72rem;
+      margin-top: 18px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      .site-header { padding: 44px 20px 90px; }
+      .profile-photo-wrap img { width: 130px; height: 130px; }
+      .profile-photo-wrap { margin-top: -65px; }
+      .blog-card { width: 240px; }
+      .review-card { width: 100%; max-width: 320px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── HEADER ─── -->
+  <header class="site-header">
+    <h1>Advertising 101</h1>
+    <p class="tagline">by Ricreations</p>
+  </header>
+
+  <!-- ─── PROFILE ─── -->
+  <section class="profile">
+    <div class="profile-photo-wrap">
+      <!--
+        PHOTO: Replace the src below with your photo URL.
+        e.g. src="https://ricreations.co.za/wp-content/uploads/your-photo.jpg"
+        Or place a photo called "photo.jpg" in the same folder as this file.
+      -->
+      <img
+        src="photo.png"
+        alt="Ricardo Chitagu"
+        onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Ricardo+Chitagu&size=160&background=1a10b0&color=f5c518&bold=true&font-size=0.4';"
+      >
+    </div>
+    <h2>Ricardo Chitagu</h2>
+    <p class="role">Art Director</p>
+    <a href="mailto:rchitagu@gmail.com" class="contact-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="4" width="20" height="16" rx="2"/>
+        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+      </svg>
+      Get in Touch
+    </a>
+  </section>
+
+  <!-- ─── BLOG CAROUSEL ─── -->
+  <section class="blog-section">
+    <div class="section-heading"><span>Latest from the Blog</span></div>
+    <div class="carousel-wrap" id="carouselWrap">
+      <div class="carousel-state" id="carouselState">
+        Loading posts<span class="dots">...</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── GOOGLE REVIEWS (Trustindex) ─── -->
+  <section class="reviews-section">
+    <div class="reviews-inner">
+      <div class="section-heading"><span>What Clients Say</span></div>
+
+      <!-- ✅ PASTE YOUR TRUSTINDEX EMBED CODE BELOW THIS LINE -->
+
+
+      <!-- ✅ PASTE YOUR TRUSTINDEX EMBED CODE ABOVE THIS LINE -->
+
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="site-footer">
+    <nav class="social-links">
+      <a href="https://www.tiktok.com/@rickichitagu" target="_blank" rel="noopener">
+        <!-- TikTok icon -->
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.89a8.18 8.18 0 004.78 1.52V7.04a4.85 4.85 0 01-1.01-.35z"/>
+        </svg>
+        TikTok
+      </a>
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener">
+        <!-- Instagram icon — UPDATE HREF with your Instagram URL -->
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+        </svg>
+        Instagram
+      </a>
+      <a href="https://www.youtube.com/@RicardoChitagu09" target="_blank" rel="noopener">
+        <!-- YouTube icon -->
+        <svg width="16" height="12" viewBox="0 0 24 17" fill="currentColor">
+          <path d="M23.5 2.7s-.2-1.6-1-2.3C21.4-.4 20.2-.4 19.6-.3 16.4 0 12 0 12 0S7.6 0 4.4-.3C3.8-.4 2.6-.4 1.5.4.7 1.1.5 2.7.5 2.7S.3 4.6.3 6.5v1.8c0 1.9.2 3.8.2 3.8s.2 1.6 1 2.3c1.1.8 2.5.8 3.1.8C6.5 15.2 12 15.3 12 15.3s4.4 0 7.6-.3c.6-.1 1.8-.1 2.9-.9.8-.7 1-2.3 1-2.3s.2-1.9.2-3.8V6.5c0-1.9-.2-3.8-.2-3.8zM9.7 10.5V4.2l6.5 3.2-6.5 3.1z"/>
+        </svg>
+        YouTube
+      </a>
+      <a href="https://www.linkedin.com/in/ricardo-c-4a993895/" target="_blank" rel="noopener">
+        <!-- LinkedIn icon -->
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+          <circle cx="4" cy="4" r="2"/>
+        </svg>
+        LinkedIn
+      </a>
+    </nav>
+    <p class="footer-copy">© 2025 Ricreations · ricreations.co.za</p>
+  </footer>
+
+  <!-- ─── BLOG POSTS SCRIPT ─── -->
+  <script>
+    (function () {
+      const WP_BASE   = 'https://ricreations.co.za';
+      const API_URL   = WP_BASE + '/wp-json/wp/v2/posts?per_page=12&_embed=1';
+      const WRAP      = document.getElementById('carouselWrap');
+      const STATE_EL  = document.getElementById('carouselState');
+
+      /* Format date: "May 2025" */
+      function fmtDate(str) {
+        return new Date(str).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+      }
+
+      /* Strip HTML tags */
+      function stripHtml(html) {
+        const d = document.createElement('div');
+        d.innerHTML = html;
+        return d.textContent || d.innerText || '';
+      }
+
+      /* Build a single card element */
+      function makeCard(post) {
+        const title    = post.title.rendered;
+        const excerpt  = stripHtml(post.excerpt ? post.excerpt.rendered : '');
+        const date     = fmtDate(post.date);
+        const link     = post.link;
+        const cats     = (post._embedded && post._embedded['wp:term']) ? post._embedded['wp:term'][0] : [];
+        const catName  = cats.length ? cats[0].name : '';
+
+        let imgEl = '';
+        try {
+          const media = post._embedded['wp:featuredmedia'];
+          if (media && media[0] && media[0].source_url) {
+            imgEl = `<img class="blog-card-img" src="${media[0].source_url}" alt="${title.replace(/"/g,"'")} loading="lazy">`;
+          }
+        } catch (e) {}
+
+        if (!imgEl) {
+          imgEl = `
+            <div class="blog-card-img-placeholder">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1a10b0" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+            </div>`;
+        }
+
+        const a = document.createElement('a');
+        a.className = 'blog-card';
+        a.href      = link;
+        a.target    = '_blank';
+        a.rel       = 'noopener';
+        a.innerHTML = `
+          ${imgEl}
+          <div class="blog-card-body">
+            <div class="blog-card-date">${date}</div>
+            ${catName ? `<span class="blog-card-tag">${catName}</span>` : ''}
+            <div class="blog-card-title">${title}</div>
+            <div class="blog-card-excerpt">${excerpt}</div>
+          </div>
+        `;
+        return a;
+      }
+
+      /* Build the carousel track from posts array */
+      function buildCarousel(posts) {
+        if (!posts || !posts.length) {
+          STATE_EL.innerHTML = `No posts found. <a href="${WP_BASE}" target="_blank">Visit the blog →</a>`;
+          return;
+        }
+
+        const track = document.createElement('div');
+        track.className = 'carousel-track';
+
+        /* Add posts twice for seamless infinite loop */
+        [posts, posts].forEach(set => {
+          set.forEach(post => track.appendChild(makeCard(post)));
+        });
+
+        WRAP.replaceChildren(track);
+
+        /* Adjust animation speed based on number of cards */
+        const duration = Math.max(30, posts.length * 5);
+        track.style.animationDuration = duration + 's';
+      }
+
+      /* Fetch posts */
+      fetch(API_URL)
+        .then(function(res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then(buildCarousel)
+        .catch(function() {
+          STATE_EL.innerHTML = `
+            <p>Couldn't load posts right now.</p>
+            <p><a href="${WP_BASE}/blog" target="_blank">Read the blog directly →</a></p>
+          `;
+        });
+    })();
+  </script>
+
+</body>
+</html>
