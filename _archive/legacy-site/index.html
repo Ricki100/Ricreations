@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ricreations | Next-Gen Creative Systems</title>
+  <meta name="description" content="Ricreations by Ricardo Chitagu - art direction, motion, brand identity, campaigns, digital marketing and web design.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --blue: #1a10b0;
+      --blue-deep: #0d0870;
+      --gold: #f5c518;
+      --ink: #11111a;
+      --paper: #f4f2ec;
+      --white: #ffffff;
+      --line: rgba(17,17,26,0.14);
+      --line-light: rgba(255,255,255,0.18);
+      --muted: rgba(17,17,26,0.62);
+      --gutter: clamp(1.1rem, 4.6vw, 4.5rem);
+      --section: clamp(4.5rem, 10vw, 8rem);
+      --max: 92rem;
+      --nav-h: 72px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-width: 320px;
+      font-family: "Inter", Arial, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+
+    .site-shell {
+      position: relative;
+      isolation: isolate;
+    }
+    .site-shell::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(17,17,26,0.05) 1px, transparent 1px) 0 0 / 25vw 100%,
+        linear-gradient(rgba(17,17,26,0.045) 1px, transparent 1px) 0 0 / 100% 112px;
+      opacity: 0.42;
+    }
+
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 20;
+      min-height: var(--nav-h);
+      padding: 18px var(--gutter);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+      color: var(--white);
+      transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, min-height 0.35s ease, padding 0.35s ease;
+    }
+    .topbar.is-scrolled {
+      min-height: 58px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      background: rgba(244,242,236,0.92);
+      border-color: var(--line);
+      color: var(--ink);
+      backdrop-filter: blur(18px);
+    }
+    .brand {
+      justify-self: start;
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .brand span { color: var(--gold); }
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: clamp(1.25rem, 3vw, 2.3rem);
+      list-style: none;
+      font-size: 0.67rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .nav-links a {
+      position: relative;
+      display: inline-flex;
+      padding: 6px 0;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.28s ease;
+    }
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    .nav-cta {
+      justify-self: end;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .nav-cta::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.45;
+    }
+
+    .hero {
+      min-height: 100vh;
+      min-height: 100dvh;
+      position: relative;
+      display: grid;
+      align-items: end;
+      padding: calc(var(--nav-h) + 2rem) var(--gutter) clamp(2rem, 5vw, 4rem);
+      overflow: hidden;
+      color: var(--white);
+      background: var(--blue);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px) 0 0 / 25vw 100%,
+        linear-gradient(rgba(255,255,255,0.09) 1px, transparent 1px) 0 0 / 100% 118px;
+      opacity: 0.5;
+    }
+    .hero::after {
+      content: "CREATIVE SYSTEMS";
+      position: absolute;
+      right: -0.14em;
+      bottom: 10%;
+      font-size: clamp(5.4rem, 17vw, 17.5rem);
+      line-height: 0.8;
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      white-space: nowrap;
+      color: rgba(255,255,255,0.055);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(270px, 0.48fr);
+      gap: clamp(2rem, 7vw, 7rem);
+      align-items: end;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: clamp(1.25rem, 3vw, 2rem);
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.68);
+    }
+    .eyebrow::before {
+      content: "";
+      width: 38px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.45;
+    }
+    h1 {
+      max-width: 12ch;
+      font-size: clamp(4rem, 14.5vw, 13rem);
+      line-height: 0.79;
+      letter-spacing: -0.09em;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+    h1 .gold { color: var(--gold); }
+    .hero-panel {
+      border-top: 1px solid var(--line-light);
+      padding-top: 1.25rem;
+    }
+    .hero-panel p {
+      max-width: 31rem;
+      font-size: clamp(0.92rem, 1.4vw, 1.1rem);
+      line-height: 1.62;
+      color: rgba(255,255,255,0.72);
+    }
+    .hero-meta {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border: 1px solid var(--line-light);
+    }
+    .hero-meta div {
+      padding: 1rem;
+      min-height: 92px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid var(--line-light);
+    }
+    .hero-meta div:last-child { border-right: 0; }
+    .hero-meta span {
+      font-size: 0.62rem;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .hero-meta strong {
+      font-size: clamp(1.45rem, 3vw, 2.4rem);
+      line-height: 1;
+      color: var(--gold);
+    }
+
+    .section {
+      padding: var(--section) var(--gutter);
+    }
+    .section-inner {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+    }
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(200px, 0.35fr) minmax(0, 1fr);
+      gap: clamp(2rem, 6vw, 6rem);
+      margin-bottom: clamp(2.5rem, 6vw, 5rem);
+      border-top: 1px solid var(--line);
+      padding-top: 1rem;
+    }
+    .kicker {
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+    .section-title {
+      max-width: 13ch;
+      font-size: clamp(2.7rem, 7.2vw, 7.4rem);
+      line-height: 0.86;
+      letter-spacing: -0.07em;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+    .section-copy {
+      max-width: 44rem;
+      margin-top: 1.2rem;
+      font-size: clamp(1rem, 1.4vw, 1.18rem);
+      line-height: 1.72;
+      color: var(--muted);
+    }
+
+    .approach-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: clamp(1rem, 3vw, 2rem);
+      align-items: stretch;
+    }
+    .image-block {
+      position: relative;
+      min-height: clamp(420px, 62vw, 720px);
+      overflow: hidden;
+      background: var(--blue);
+    }
+    .image-block img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.85) contrast(1.08);
+      transform: scale(1.04);
+      transition: transform 1.2s cubic-bezier(.2,.7,.1,1);
+    }
+    .image-block.is-visible img { transform: scale(1); }
+    .image-tag {
+      position: absolute;
+      left: 1rem;
+      bottom: 1rem;
+      padding: 0.6rem 0.75rem;
+      background: var(--gold);
+      color: var(--ink);
+      font-size: 0.62rem;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .principles {
+      display: grid;
+      border-top: 1px solid var(--line);
+    }
+    .principle {
+      display: grid;
+      grid-template-columns: 84px minmax(0, 1fr);
+      gap: 1.2rem;
+      padding: clamp(1.4rem, 3vw, 2rem) 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .principle span {
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      color: var(--blue);
+    }
+    .principle h3 {
+      margin-bottom: 0.65rem;
+      font-size: clamp(1.35rem, 2.5vw, 2.2rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+    .principle p {
+      max-width: 40rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .solutions {
+      background: var(--ink);
+      color: var(--white);
+    }
+    .solutions .section-head { border-top-color: rgba(255,255,255,0.16); }
+    .solutions .kicker { color: var(--gold); }
+    .solutions .section-copy { color: rgba(255,255,255,0.62); }
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-top: 1px solid rgba(255,255,255,0.16);
+      border-left: 1px solid rgba(255,255,255,0.16);
+    }
+    .service-card {
+      min-height: 310px;
+      padding: clamp(1.1rem, 2.5vw, 1.8rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid rgba(255,255,255,0.16);
+      border-bottom: 1px solid rgba(255,255,255,0.16);
+      background:
+        linear-gradient(135deg, rgba(245,197,24,0.16), transparent 45%),
+        rgba(255,255,255,0.025);
+      transition: transform 0.35s ease, background 0.35s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      background:
+        linear-gradient(135deg, rgba(245,197,24,0.22), transparent 45%),
+        rgba(255,255,255,0.06);
+    }
+    .service-card span {
+      color: var(--gold);
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+    }
+    .service-card h3 {
+      max-width: 10ch;
+      margin: 2rem 0 1rem;
+      font-size: clamp(1.6rem, 3vw, 2.55rem);
+      line-height: 0.93;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+    }
+    .service-card p {
+      color: rgba(255,255,255,0.62);
+      line-height: 1.6;
+      font-size: 0.92rem;
+    }
+
+    /* ── CASE STUDIES ──────────────────────────────────── */
+    .cs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(1rem, 2.5vw, 1.75rem);
+    }
+    .cs-card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      background: var(--white);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    .cs-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 64px rgba(17,17,26,0.1);
+    }
+    .cs-card.cs-featured {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+    .cs-cover {
+      position: relative;
+      min-height: 300px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(1.2rem, 3vw, 2rem);
+    }
+    .cs-card.cs-featured .cs-cover {
+      min-height: 420px;
+    }
+    .cs-cover-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .cs-cover-pattern {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px) 0 0 / 25% 100%,
+        linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px) 0 0 / 100% 80px;
+    }
+    .cs-cover-gradient {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 60%);
+    }
+    .cs-cover-content {
+      position: relative;
+      z-index: 3;
+    }
+    .cs-platform-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      background: var(--gold);
+      color: var(--ink);
+      font-size: 0.6rem;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      width: fit-content;
+    }
+    .cs-cover h3 {
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .cs-cover-sub {
+      margin-top: 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+    .cs-body {
+      padding: clamp(1.2rem, 3vw, 1.8rem);
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .cs-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .cs-tag {
+      font-size: 0.58rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border: 1px solid var(--line);
+      color: var(--blue);
+    }
+    .cs-excerpt {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--muted);
+      flex: 1;
+      margin-bottom: 1.25rem;
+    }
+    .cs-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+      margin-bottom: 1.25rem;
+    }
+    .cs-metric {
+      padding: 0.75rem;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .cs-metric-label {
+      font-size: 0.58rem;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .cs-metric-value {
+      font-size: clamp(1.1rem, 2.2vw, 1.55rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--blue);
+      line-height: 1;
+    }
+    .cs-metric-value.gold { color: var(--gold); filter: brightness(0.82); }
+    .cs-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.66rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue);
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 3px;
+      width: fit-content;
+      transition: gap 0.2s ease;
+    }
+    .cs-cta:hover { gap: 16px; }
+    .cs-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.6rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-left: auto;
+    }
+    .cs-status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .cs-footer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    @media (max-width: 900px) {
+      .cs-grid { grid-template-columns: 1fr; }
+      .cs-card.cs-featured { grid-column: span 1; grid-template-columns: 1fr; }
+    }
+    @media (max-width: 767px) {
+      .cs-metrics { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .project-strip {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: clamp(1rem, 3vw, 2rem);
+      align-items: stretch;
+    }
+    .project-media {
+      min-height: clamp(420px, 55vw, 680px);
+      position: relative;
+      overflow: hidden;
+      background: var(--blue);
+    }
+    .project-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      mix-blend-mode: luminosity;
+      opacity: 0.95;
+    }
+    .project-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(26,16,176,0.88), rgba(26,16,176,0.08));
+    }
+    .project-list {
+      display: grid;
+      align-content: end;
+      border-top: 1px solid var(--line);
+    }
+    .project-row {
+      display: grid;
+      grid-template-columns: 86px minmax(0, 1fr);
+      gap: 1rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .project-row span {
+      color: var(--blue);
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+    }
+    .project-row h3 {
+      font-size: clamp(1.15rem, 2vw, 1.7rem);
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+    }
+    .project-row p {
+      margin-top: 0.4rem;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.92rem;
+    }
+
+    .value {
+      background: var(--blue);
+      color: var(--white);
+      overflow: hidden;
+    }
+    .value .section-head { border-top-color: var(--line-light); }
+    .value .kicker { color: var(--gold); }
+    .value .section-copy { color: rgba(255,255,255,0.66); }
+    .value-band {
+      position: relative;
+      margin-top: 3rem;
+      padding: clamp(2rem, 7vw, 5rem) 0;
+      border-top: 1px solid var(--line-light);
+      border-bottom: 1px solid var(--line-light);
+      overflow: hidden;
+    }
+    .value-track {
+      display: flex;
+      width: max-content;
+      animation: valueMove 24s linear infinite;
+    }
+    .value-item {
+      padding-right: clamp(2rem, 6vw, 5rem);
+      font-size: clamp(3rem, 11vw, 10rem);
+      line-height: 0.85;
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: rgba(255,255,255,0.12);
+    }
+    .value-item:nth-child(2n) { color: var(--gold); opacity: 0.78; }
+    @keyframes valueMove {
+      to { transform: translateX(-50%); }
+    }
+
+    .reviews {
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .reviews-stage {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 0.38fr) minmax(0, 1fr);
+      gap: clamp(1.5rem, 5vw, 5rem);
+      padding: clamp(1rem, 2vw, 1.35rem);
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(26,16,176,0.08) 1px, transparent 1px) 0 0 / 25% 100%,
+        var(--white);
+    }
+    .reviews-aside {
+      min-height: 420px;
+      padding: clamp(1.2rem, 3vw, 2rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--blue);
+      color: var(--white);
+      overflow: hidden;
+      position: relative;
+    }
+    .reviews-aside::after {
+      content: "REVIEWS";
+      position: absolute;
+      left: -0.08em;
+      bottom: 0.04em;
+      font-size: clamp(4.2rem, 10vw, 9rem);
+      line-height: 0.8;
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      color: rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .reviews-aside .kicker { color: var(--gold); }
+    .reviews-aside h2 {
+      position: relative;
+      z-index: 1;
+      max-width: 8ch;
+      font-size: clamp(2.7rem, 6vw, 5.8rem);
+      line-height: 0.84;
+      letter-spacing: -0.07em;
+      text-transform: uppercase;
+    }
+    .reviews-aside p {
+      position: relative;
+      z-index: 1;
+      max-width: 25rem;
+      color: rgba(255,255,255,0.68);
+      line-height: 1.65;
+    }
+    .reviews-widget {
+      min-width: 0;
+      min-height: 420px;
+      padding: clamp(1rem, 3vw, 2rem);
+      display: flex;
+      align-items: center;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--blue) rgba(17,17,26,0.12);
+    }
+    .reviews-widget::-webkit-scrollbar { height: 8px; }
+    .reviews-widget::-webkit-scrollbar-track { background: rgba(17,17,26,0.08); }
+    .reviews-widget::-webkit-scrollbar-thumb { background: var(--blue); }
+    .reviews-widget > * {
+      width: 100%;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 0.42fr);
+      gap: clamp(2rem, 7vw, 7rem);
+      align-items: end;
+    }
+    .contact h2 {
+      font-size: clamp(3rem, 9vw, 9rem);
+      line-height: 0.84;
+      letter-spacing: -0.08em;
+      text-transform: uppercase;
+    }
+    .contact h2 span { color: var(--blue); }
+    .contact-panel {
+      border-top: 1px solid var(--line);
+      padding-top: 1rem;
+    }
+    .contact-panel p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .contact-button {
+      display: inline-flex;
+      width: 100%;
+      min-height: 58px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+      background: var(--ink);
+      color: var(--white);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .contact-button span {
+      color: var(--gold);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .footer {
+      padding: 1.25rem var(--gutter);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      font-size: 0.67rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(17,17,26,0.52);
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity 0.75s ease, transform 0.75s cubic-bezier(.2,.7,.1,1);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .split-line {
+      display: block;
+      overflow: hidden;
+    }
+    .split-line span {
+      display: block;
+      transform: translateY(110%);
+      animation: rise 1s cubic-bezier(.2,.7,.1,1) forwards;
+    }
+    .split-line:nth-child(2) span { animation-delay: 0.1s; }
+    .split-line:nth-child(3) span { animation-delay: 0.2s; }
+    @keyframes rise {
+      to { transform: translateY(0); }
+    }
+
+    @media (max-width: 1100px) {
+      .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-inner,
+      .approach-grid,
+      .project-strip,
+      .reviews-stage,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-inner { align-items: start; }
+      .hero-panel { max-width: 44rem; }
+      .project-list { align-content: start; }
+    }
+
+    @media (max-width: 767px) {
+      :root {
+        --nav-h: 64px;
+        --gutter: clamp(1rem, 6vw, 1.4rem);
+      }
+      .topbar {
+        grid-template-columns: 1fr;
+        justify-items: start;
+        gap: 0.65rem;
+      }
+      .brand { display: none; }
+      .nav-links {
+        justify-content: flex-start;
+        gap: 1.1rem;
+        width: 100%;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-cta { display: none; }
+      .hero {
+        min-height: min(760px, 100dvh);
+        align-items: end;
+        padding-top: calc(var(--nav-h) + 2.25rem);
+        padding-bottom: 1.25rem;
+      }
+      .hero::after {
+        bottom: 20%;
+        font-size: clamp(5rem, 26vw, 8rem);
+      }
+      .hero-inner { gap: 2rem; }
+      h1 {
+        font-size: clamp(3.7rem, 18vw, 6.2rem);
+        max-width: 8ch;
+      }
+      .hero-panel p { font-size: 0.92rem; }
+      .hero-meta {
+        margin-top: 1.35rem;
+        grid-template-columns: 1fr;
+      }
+      .hero-meta div {
+        min-height: 76px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line-light);
+      }
+      .hero-meta div:last-child { border-bottom: 0; }
+      .section-head {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .section-title {
+        font-size: clamp(2.55rem, 15vw, 4.6rem);
+        max-width: 10ch;
+      }
+      .image-block,
+      .project-media {
+        min-height: 360px;
+      }
+      .principle,
+      .project-row {
+        grid-template-columns: 1fr;
+        gap: 0.65rem;
+      }
+      .service-grid {
+        grid-template-columns: 1fr;
+      }
+      .service-card {
+        min-height: 250px;
+      }
+      .reviews-stage {
+        padding: 0;
+      }
+      .reviews-aside {
+        min-height: 300px;
+      }
+      .reviews-widget {
+        min-height: 320px;
+        padding: 1rem;
+      }
+      .contact h2 {
+        font-size: clamp(3rem, 16vw, 5.8rem);
+      }
+      .footer {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .nav-links {
+        gap: 0.85rem;
+        font-size: 0.6rem;
+      }
+      .hero {
+        min-height: min(700px, 100dvh);
+      }
+      .eyebrow { font-size: 0.6rem; }
+      h1 { font-size: clamp(3.35rem, 17vw, 4.6rem); }
+      .section { padding-top: 4rem; padding-bottom: 4rem; }
+      .hero-meta strong { font-size: 1.65rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar" data-nav>
+      <a class="brand" href="#top">Ric<span>reations</span></a>
+      <nav aria-label="Primary navigation">
+        <ul class="nav-links">
+          <li><a href="#approach">Approach</a></li>
+          <li><a href="#solutions">Solutions</a></li>
+          <li><a href="#projects">Work</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a class="nav-cta" href="mailto:info@ricreations.co.za">Start a brief</a>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-inner">
+          <div>
+            <p class="eyebrow">Ricardo Chitagu / Art Director</p>
+            <h1 id="hero-title" aria-label="Next-gen creative marketing">
+              <span class="split-line"><span>Next-Gen</span></span>
+              <span class="split-line"><span class="gold">Creative</span></span>
+              <span class="split-line"><span>Systems</span></span>
+            </h1>
+          </div>
+          <div class="hero-panel reveal">
+            <p>Ricreations builds campaign ideas, brand worlds, motion stories and digital experiences for teams that need their message to move with precision.</p>
+            <div class="hero-meta" aria-label="Ricreations capabilities summary">
+              <div>
+                <span>Core</span>
+                <strong>07</strong>
+              </div>
+              <div>
+                <span>Mode</span>
+                <strong>360</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="approach">
+        <div class="section-inner">
+          <div class="section-head reveal">
+            <p class="kicker">Approach</p>
+            <div>
+              <h2 class="section-title">Ideas engineered for attention</h2>
+              <p class="section-copy">Every project is treated like a system: strategy defines the signal, art direction gives it form, motion gives it energy, and digital execution gets it into the world.</p>
+            </div>
+          </div>
+
+          <div class="approach-grid">
+            <figure class="image-block reveal">
+              <img src="desktop-25.jpg" alt="Ricreations visual artwork">
+              <figcaption class="image-tag">Visual direction</figcaption>
+            </figure>
+
+            <div class="principles">
+              <article class="principle reveal">
+                <span>01</span>
+                <div>
+                  <h3>Define the signal</h3>
+                  <p>Clarify the audience, the promise and the action before any layout, frame or campaign asset is produced.</p>
+                </div>
+              </article>
+              <article class="principle reveal">
+                <span>02</span>
+                <div>
+                  <h3>Design the system</h3>
+                  <p>Build a flexible visual language that can move across social, video, print, signage and web without losing recognition.</p>
+                </div>
+              </article>
+              <article class="principle reveal">
+                <span>03</span>
+                <div>
+                  <h3>Move the audience</h3>
+                  <p>Use motion, rhythm and digital distribution to turn static brand messages into experiences people remember.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section solutions" id="solutions">
+        <div class="section-inner">
+          <div class="section-head reveal">
+            <p class="kicker">Solutions</p>
+            <div>
+              <h2 class="section-title">Creative infrastructure</h2>
+              <p class="section-copy">A modular set of services for brands that need design craft, campaign thinking and execution speed in one place.</p>
+            </div>
+          </div>
+
+          <div class="service-grid">
+            <article class="service-card reveal">
+              <span>01</span>
+              <div>
+                <h3>Art Direction</h3>
+                <p>Campaign concepts, key visuals, mood systems and execution guidance.</p>
+              </div>
+            </article>
+            <article class="service-card reveal">
+              <span>02</span>
+              <div>
+                <h3>Motion & Video</h3>
+                <p>Social reels, explainer edits, kinetic typography and production-ready motion.</p>
+              </div>
+            </article>
+            <article class="service-card reveal">
+              <span>03</span>
+              <div>
+                <h3>Brand Identity</h3>
+                <p>Logos, color systems, type direction and visual rules for recognition.</p>
+              </div>
+            </article>
+            <article class="service-card reveal">
+              <span>04</span>
+              <div>
+                <h3>Web Design</h3>
+                <p>Fast, focused websites and landing pages designed to convert attention.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="section-inner">
+          <div class="section-head reveal">
+            <p class="kicker">Case Studies</p>
+            <div>
+              <h2 class="section-title">Work that performs</h2>
+              <p class="section-copy">Every number here is from a live campaign. Strategy, creative and paid media built together from the ground up.</p>
+            </div>
+          </div>
+
+          <div class="cs-grid">
+
+            <!-- AZZAR STEEL — FEATURED -->
+            <article class="cs-card cs-featured reveal">
+              <div class="cs-cover">
+                <div class="cs-cover-bg" style="background: linear-gradient(135deg, #0d0870 0%, #1a10b0 60%, #2a1ec0 100%);"></div>
+                <div class="cs-cover-pattern"></div>
+                <div class="cs-cover-gradient"></div>
+                <div class="cs-cover-content">
+                  <span class="cs-platform-tag">Meta Lead Gen</span>
+                  <h3>Azzar Steel<br>&amp; Fencing</h3>
+                  <p class="cs-cover-sub">B2B / Lead Generation / Zimbabwe</p>
+                </div>
+              </div>
+              <div class="cs-body">
+                <div class="cs-tags">
+                  <span class="cs-tag">Facebook Ads</span>
+                  <span class="cs-tag">Instagram</span>
+                  <span class="cs-tag">Lead Generation</span>
+                  <span class="cs-tag">Audience Strategy</span>
+                  <span class="cs-tag">Creative Direction</span>
+                </div>
+                <p class="cs-excerpt">Built the campaign infrastructure from zero — pixel setup, custom audiences, creative direction and targeting strategy across multiple Zimbabwe provinces. Achieved one of the lowest CPLs in the B2B sector on Meta, with the campaign still active and generating leads.</p>
+                <div class="cs-metrics">
+                  <div class="cs-metric">
+                    <span class="cs-metric-label">Leads</span>
+                    <span class="cs-metric-value">250+</span>
+                  </div>
+                  <div class="cs-metric">
+                    <span class="cs-metric-label">Cost Per Lead</span>
+                    <span class="cs-metric-value gold">$0.11</span>
+                  </div>
+                  <div class="cs-metric">
+                    <span class="cs-metric-label">Total Spend</span>
+                    <span class="cs-metric-value">$18.57</span>
+                  </div>
+                </div>
+                <div class="cs-footer">
+                  <a class="cs-cta" href="case-study.html?id=azzar-steel">View full case study &rarr;</a>
+                  <span class="cs-status"><span class="cs-status-dot"></span>Active campaign</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- KREDIBILITY FINANCE -->
+            <article class="cs-card reveal">
+              <div class="cs-cover">
+                <div class="cs-cover-bg" style="background: linear-gradient(135deg, #11111a 0%, #1e1e2e 100%);"></div>
+                <div class="cs-cover-pattern"></div>
+                <div class="cs-cover-gradient"></div>
+                <div class="cs-cover-content">
+                  <span class="cs-platform-tag">Meta Social + Leads</span>
+                  <h3>Kredibility<br>Finance</h3>
+                  <p class="cs-cover-sub">Financial Services / Social Growth / Zimbabwe</p>
+                </div>
+              </div>
+              <div class="cs-body">
+                <div class="cs-tags">
+                  <span class="cs-tag">Social Media</span>
+                  <span class="cs-tag">Meta Ads</span>
+                  <span class="cs-tag">Lead Gen</span>
+                  <span class="cs-tag">Brand Building</span>
+                </div>
+                <p class="cs-excerpt">Managing a phased digital strategy for a financial services brand — beginning with social proof and engagement, moving into lead generation as audience trust builds. Full Meta infrastructure including Pixel, Events Manager and Conversions API configured under financial services category.</p>
+                <div class="cs-metrics">
+                  <div class="cs-metric">
+                    <span class="cs-metric-label">Page Views</span>
+                    <span class="cs-metric-value">277</span>
+                  </div>
+                  <div class="cs-metric">
+                    <span class="cs-metric-label">Lead Events</span>
+                    <span class="cs-metric-value gold">11</span>
+                  </div>
+                  <div class="cs-metric">
+                    <span class="cs-metric-label">CPL</span>
+                    <span class="cs-metric-value">$0.06</span>
+                  </div>
+                </div>
+                <div class="cs-footer">
+                  <a class="cs-cta" href="case-study.html?id=kredibility-finance">View full case study &rarr;</a>
+                  <span class="cs-status"><span class="cs-status-dot"></span>Active</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- ZIBUKO CAPITAL -->
+            <article class="cs-card reveal">
+              <div class="cs-cover">
+                <div class="cs-cover-bg" style="background: linear-gradient(135deg, #1a10b0 0%, #f5c518 180%);"></div>
+                <div class="cs-cover-pattern"></div>
+                <div class="cs-cover-gradient"></div>
+                <div class="cs-cover-content">
+                  <span class="cs-platform-tag">Brand + Paid Media</span>
+                  <h3>Zibuko<br>Capital</h3>
+                  <p class="cs-cover-sub">Capital / Brand Identity / Meta Ads</p>
+                </div>
+              </div>
+              <div class="cs-body">
+                <div class="cs-tags">
+                  <span class="cs-tag">Art Direction</span>
+                  <span class="cs-tag">Meta Ads</span>
+                  <span class="cs-tag">Creative Strategy</span>
+                </div>
+                <p class="cs-excerpt">Brand positioning and paid media execution for a capital and investment brand. Creative direction from concept through to ad-ready assets, with campaign management across Meta platforms targeting relevant investor and entrepreneur audiences.</p>
+                <div class="cs-metrics">
+                  <div class="cs-metric">
+                    <span class="cs-metric-label">Platform</span>
+                    <span class="cs-metric-value" style="font-size:0.95rem;">Meta</span>
+                  </div>
+                  <div class="cs-metric">
+                    <span class="cs-metric-label">Services</span>
+                    <span class="cs-metric-value" style="font-size:0.95rem;">Brand</span>
+                  </div>
+                  <div class="cs-metric">
+                    <span class="cs-metric-label">Status</span>
+                    <span class="cs-metric-value gold" style="font-size:0.95rem;">Live</span>
+                  </div>
+                </div>
+                <div class="cs-footer">
+                  <a class="cs-cta" href="case-study.html?id=zibuko-capital">View full case study &rarr;</a>
+                  <span class="cs-status"><span class="cs-status-dot"></span>Active</span>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="section value" id="value">
+        <div class="section-inner">
+          <div class="section-head reveal">
+            <p class="kicker">Value</p>
+            <div>
+              <h2 class="section-title">Strategy, craft and motion</h2>
+              <p class="section-copy">Ricreations helps brands compress the distance between idea and execution, keeping the concept sharp while the assets multiply.</p>
+            </div>
+          </div>
+        </div>
+        <div class="value-band" aria-hidden="true">
+          <div class="value-track">
+            <div class="value-item">Art direction</div>
+            <div class="value-item">Motion</div>
+            <div class="value-item">Campaigns</div>
+            <div class="value-item">Web</div>
+            <div class="value-item">Art direction</div>
+            <div class="value-item">Motion</div>
+            <div class="value-item">Campaigns</div>
+            <div class="value-item">Web</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section reviews" id="reviews">
+        <div class="section-inner">
+          <div class="reviews-stage reveal">
+            <aside class="reviews-aside">
+              <p class="kicker">Google Reviews</p>
+              <h2>Client proof</h2>
+              <p>Live Google review signals, framed inside the same Ricreations system: clear, structured and built for trust.</p>
+            </aside>
+            <div class="reviews-widget" aria-label="Ricreations client reviews">
+              <script src="https://elfsightcdn.com/platform.js" async></script>
+              <div class="elfsight-app-8c665b81-0dd5-4245-b55c-91ff14baf416" data-elfsight-app-lazy></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact" id="contact">
+        <div class="section-inner contact-grid">
+          <h2 class="reveal">Ready for a <span>next-gen</span> creative build?</h2>
+          <div class="contact-panel reveal">
+            <p>Bring the brief, the launch date or the half-formed idea. Ricreations can shape the creative system and produce the assets to make it real.</p>
+            <a class="contact-button" href="mailto:info@ricreations.co.za">info@ricreations.co.za <span>+</span></a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Ricreations / Ricardo Chitagu</p>
+      <div class="footer-links">
+        <a href="https://www.behance.net/rchitagu5164" target="_blank" rel="noopener">Behance</a>
+        <a href="https://www.tiktok.com/@rickichitagu" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.linkedin.com/in/ricardo-c-4a993895/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const nav = document.querySelector('[data-nav]');
+    const revealItems = document.querySelectorAll('.reveal, .image-block');
+    const reviewsWidget = document.querySelector('.reviews-widget');
+
+    const setNavState = () => {
+      nav.classList.toggle('is-scrolled', window.scrollY > 24);
+    };
+    setNavState();
+    window.addEventListener('scroll', setNavState, { passive: true });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+
+    revealItems.forEach((item, index) => {
+      item.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
+      observer.observe(item);
+    });
+
+    if (reviewsWidget && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let reviewsPaused = false;
+      let reviewsDirection = 1;
+
+      const pauseReviews = () => { reviewsPaused = true; };
+      const playReviews = () => { reviewsPaused = false; };
+
+      reviewsWidget.addEventListener('mouseenter', pauseReviews);
+      reviewsWidget.addEventListener('mouseleave', playReviews);
+      reviewsWidget.addEventListener('touchstart', pauseReviews, { passive: true });
+      reviewsWidget.addEventListener('touchend', playReviews, { passive: true });
+
+      const autoScrollReviews = () => {
+        const maxScroll = reviewsWidget.scrollWidth - reviewsWidget.clientWidth;
+        if (!reviewsPaused && maxScroll > 8) {
+          reviewsWidget.scrollLeft += reviewsDirection * 0.45;
+          if (reviewsWidget.scrollLeft >= maxScroll - 2) reviewsDirection = -1;
+          if (reviewsWidget.scrollLeft <= 2) reviewsDirection = 1;
+        }
+        requestAnimationFrame(autoScrollReviews);
+      };
+
+      requestAnimationFrame(autoScrollReviews);
+    }
+  </script>
+</body>
+</html>
