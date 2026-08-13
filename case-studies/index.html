@@ -4,212 +4,1163 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <base href="../">
-  <title>Selected Case Studies | Ricardo Chitagu</title>
-  <meta name="description" content="Selected digital marketing, lead generation and automation case studies by Ricardo Chitagu.">
-  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Case Studies | Ricardo Chitagu</title>
   <link rel="icon" type="image/png" href="assets/images/brand/favicon.png?v=2">
   <link rel="apple-touch-icon" href="assets/images/brand/favicon.png?v=2">
+  <meta name="description" content="Selected digital marketing, automation and lead-generation case studies by Ricardo Chitagu.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="geo.region" content="ZW-HA">
+  <meta name="geo.placename" content="Harare">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_ZW">
+  <meta property="og:title" content="Case Studies | Ricardo Chitagu">
+  <meta property="og:description" content="Selected digital marketing, automation and lead-generation case studies.">
+  <meta property="og:image" content="assets/images/profile/ricardo-chitagu.png">
+  <meta property="og:image:alt" content="Ricardo Chitagu, digital marketer and creative professional">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Case Studies | Ricardo Chitagu">
+  <meta name="twitter:description" content="Selected digital marketing, automation and lead-generation case studies.">
+  <meta name="twitter:image" content="assets/images/profile/ricardo-chitagu.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "#ricardo-chitagu",
+        "name": "Ricardo Chitagu",
+        "jobTitle": "Digital Marketer",
+        "email": "mailto:rchitagu@gmail.com",
+        "image": "assets/images/profile/ricardo-chitagu.png",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Harare",
+          "addressCountry": "ZW"
+        },
+        "knowsAbout": [
+          "Digital marketing",
+          "AI automation",
+          "Marketing automation",
+          "Customer relationship management",
+          "Campaign strategy",
+          "Social media marketing",
+          "Search engine optimization",
+          "Paid advertising",
+          "Creative direction",
+          "Motion design",
+          "Web design"
+        ]
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "#digital-marketing-service",
+        "name": "Ricardo Chitagu Digital Marketing",
+        "founder": { "@id": "#ricardo-chitagu" },
+        "email": "mailto:rchitagu@gmail.com",
+        "areaServed": {
+          "@type": "City",
+          "name": "Harare"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Harare",
+          "addressCountry": "ZW"
+        },
+        "serviceType": [
+          "AI automation systems",
+          "Marketing automation and CRM",
+          "AI-powered campaigns",
+          "Web and AI integrations",
+          "Digital marketing",
+          "Social media marketing",
+          "SEO",
+          "Paid advertising",
+          "Campaign creative",
+          "Web design"
+        ]
+      }
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
   <style>
     :root {
-      --blue: #1a10b0;
-      --blue-dark: #0f0a75;
-      --gold: #f5c518;
-      --white: #fff;
-      --off: #f4f4f0;
-      --ink: #11111a;
-      --muted: #676773;
-      --line: rgba(17, 17, 26, .14);
-      --gutter: clamp(1.25rem, 4.5vw, 4rem);
-      --max: 90rem;
+      --blue:    #1a10b0;
+      --blue-dk: #0f0a75;
+      --gold:    #f5c518;
+      --white:   #ffffff;
+      --off:     #f4f4f0;
+      --dark:    #1a10b0;
+      --muted:   #6b7280;
+      --gutter:  clamp(1.25rem, 4.5vw, 4rem);
+      --section-y: clamp(5rem, 9vw, 7.5rem);
+      --content-max: 90rem;
+      --nav-h: 3.75rem;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: "Inter", sans-serif; background: var(--off); color: var(--ink); }
-    a { color: inherit; text-decoration: none; }
-    img { display: block; width: 100%; }
+    html { scroll-behavior: auto; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--dark); overflow-x: hidden; }
 
-    .topbar {
-      min-height: 4.5rem;
-      padding: 1rem var(--gutter);
+    /* ── NAV ── */
+    nav.site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: max(14px, env(safe-area-inset-top)) var(--gutter) 14px;
+      min-height: var(--nav-h);
       display: flex;
+      justify-content: center;
       align-items: center;
-      justify-content: space-between;
-      background: var(--blue);
-      color: var(--white);
-      border-bottom: 1px solid rgba(255,255,255,.15);
+      background: transparent;
+      transition: padding 0.3s ease, background 0.45s ease, box-shadow 0.45s ease;
+    }
+    nav.site-nav.scrolled {
+      padding: max(10px, env(safe-area-inset-top)) var(--gutter) 10px;
+      background: #ffffff;
+      box-shadow: 0 1px 20px rgba(0,0,0,0.08);
     }
 
-    .brand {
-      font-size: .72rem;
-      font-weight: 900;
-      letter-spacing: .18em;
+    nav.site-nav .nav-links {
+      display: flex;
+      gap: clamp(1.25rem, 4vw, 2.5rem);
+      align-items: center;
+      justify-content: center;
+    }
+    nav.site-nav .nav-links a {
+      font-size: clamp(0.62rem, 1.6vw, 0.72rem);
+      font-weight: 700;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
+      color: #ffffff;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.25s;
     }
+    nav.site-nav .nav-links a:hover { color: var(--gold); }
+    nav.site-nav.scrolled .nav-links a { color: var(--blue); }
+    nav.site-nav.scrolled .nav-links a:hover { color: var(--gold); }
 
-    .brand span { color: var(--gold); }
-
-    .contact-link {
-      font-size: .66rem;
-      font-weight: 800;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
+    /* ── HERO ── */
     .hero {
+      min-height: 100vh;
+      min-height: 100dvh;
+      background: var(--blue);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: calc(var(--nav-h) + 1.5rem) var(--gutter) clamp(3rem, 6vw, 4rem);
       position: relative;
       overflow: hidden;
-      padding: clamp(5rem, 10vw, 9rem) var(--gutter) clamp(4rem, 8vw, 7rem);
-      background: var(--blue);
-      color: var(--white);
     }
-
-    .hero::after {
-      content: "WORK";
+    .hero-bg-text {
       position: absolute;
-      right: -.04em;
-      bottom: -.16em;
-      font-size: clamp(9rem, 28vw, 28rem);
-      line-height: .8;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(100px, 20vw, 260px);
       font-weight: 900;
-      letter-spacing: -.08em;
-      color: rgba(255,255,255,.035);
+      color: rgba(255,255,255,0.03);
+      white-space: nowrap;
       pointer-events: none;
+      letter-spacing: -0.04em;
+      user-select: none;
     }
-
-    .hero-inner, .work-inner { width: min(100%, var(--max)); margin: 0 auto; }
-    .eyebrow { margin-bottom: 1.5rem; color: var(--gold); font-size: .68rem; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; }
-
-    h1 {
-      position: relative;
-      z-index: 1;
-      max-width: 8ch;
-      font-size: clamp(4rem, 12vw, 10.5rem);
-      line-height: .82;
-      letter-spacing: -.075em;
-      text-transform: uppercase;
-    }
-
-    .hero-copy {
-      position: relative;
-      z-index: 1;
-      max-width: 46rem;
-      margin-top: clamp(2rem, 5vw, 3.5rem);
-      font-size: clamp(1rem, 1.7vw, 1.25rem);
-      line-height: 1.65;
-      color: rgba(255,255,255,.7);
-    }
-
-    .work { padding: clamp(4rem, 9vw, 8rem) var(--gutter); }
-    .work-header { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: clamp(2rem, 5vw, 4rem); }
-    .work-header h2 { font-size: clamp(2rem, 5vw, 4rem); line-height: .95; letter-spacing: -.055em; text-transform: uppercase; }
-    .work-count { font-size: .64rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; color: var(--blue); }
-
-    .case-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-    .case-card { display: flex; flex-direction: column; min-height: 100%; background: var(--white); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transition: transform .25s ease, box-shadow .25s ease; }
-    .case-card:hover { position: relative; z-index: 2; transform: translateY(-6px); box-shadow: 0 22px 55px rgba(17,17,26,.13); }
-    .case-visual { position: relative; overflow: hidden; aspect-ratio: 16 / 10; background: var(--blue); }
-    .case-visual img { height: 100%; object-fit: cover; transition: transform .55s ease; }
-    .case-card:hover .case-visual img { transform: scale(1.035); }
-
-    .case-visual--type {
-      display: flex;
-      align-items: flex-end;
-      padding: clamp(1.5rem, 4vw, 3rem);
-      background: linear-gradient(145deg, #11111a, var(--blue-dark));
-      color: var(--gold);
-      font-size: clamp(3rem, 8vw, 7.5rem);
+    .hero-name { position: relative; z-index: 2; }
+    .hero-name .line { overflow: hidden; line-height: 0.92; }
+    .hero-name .line span {
+      display: block;
+      font-size: clamp(64px, 11vw, 160px);
       font-weight: 900;
-      line-height: .8;
-      letter-spacing: -.075em;
-      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      transform: translateY(110%);
+    }
+    .hero-name .line.gold span { color: var(--gold); }
+    .hero-bottom {
+      position: relative; z-index: 2;
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .hero-role {
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      max-width: min(76rem, 82vw);
+      line-height: 1.7;
+    }
+    .hero-scroll {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-scroll::before { content: ''; width: 32px; height: 1px; background: rgba(255,255,255,0.25); }
+
+    /* ── INTRO ── */
+    .intro {
+      padding: var(--section-y) var(--gutter);
+      display: grid;
+      grid-template-columns: minmax(260px, 380px) minmax(0, 1fr);
+      gap: clamp(2.5rem, 6vw, 5rem);
+      align-items: center;
+      max-width: var(--content-max);
+      margin: 0 auto;
+      width: 100%;
+    }
+    .intro-photo-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      width: 100%;
+      max-width: 380px;
+    }
+    .intro-photo-wrap img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transform: scale(1.08);
+    }
+    .intro-photo-overlay {
+      position: absolute; inset: 0;
+      background: var(--blue);
+      transform-origin: bottom;
+    }
+    .intro-content { padding: 20px 0; }
+    .label {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .label::before { content: ''; width: 24px; height: 2px; background: var(--gold); }
+    .intro-heading {
+      font-size: clamp(30px, 3.5vw, 50px);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -0.02em; margin-bottom: 24px;
+    }
+    .intro-heading em { font-style: italic; color: var(--blue); font-weight: 300; }
+    .intro-text {
+      font-size: 0.97rem; line-height: 1.78;
+      color: var(--blue); margin-bottom: 36px;
+      opacity: 0.75;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 13px 30px; font-size: 0.76rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; border-radius: 2px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-gold {
+      background: var(--gold); color: #0d0d0d;
+      box-shadow: 0 4px 20px rgba(245,197,24,0.3);
+    }
+    .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(245,197,24,0.45); }
+    .intro-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .btn-blue {
+      border: 2px solid var(--blue); background: transparent; color: var(--blue);
+      cursor: pointer; font-family: inherit;
+    }
+    .btn-blue:hover { transform: translateY(-3px); background: var(--blue); color: var(--white); box-shadow: 0 8px 30px rgba(26,16,176,0.2); }
+    .case-access-form {
+      display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px;
+      margin-top: 18px; padding: 16px; max-width: 720px;
+      background: var(--off); border-left: 3px solid var(--gold);
+    }
+    .case-access-form[hidden] { display: none; }
+    .case-access-form label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .case-access-form input {
+      width: 100%; min-width: 0; padding: 12px 13px;
+      border: 1px solid rgba(26,16,176,0.2); border-radius: 2px;
+      background: var(--white); color: var(--blue); font: inherit; font-size: 0.84rem;
+      outline: none;
+    }
+    .case-access-form input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,16,176,0.1); }
+    .case-access-submit { border: 0; white-space: nowrap; cursor: pointer; font-family: inherit; }
+    .case-access-submit:disabled { cursor: wait; opacity: .65; transform: none; }
+    .case-access-status { grid-column: 1 / -1; min-height: 1.2em; font-size: .74rem; line-height: 1.5; color: var(--muted); }
+    .case-access-status.is-error { color: #b42318; }
+
+    /* ── SERVICES ── */
+    .services {
+      padding: var(--section-y) var(--gutter);
+      background: var(--off);
+      max-width: 100%;
+    }
+    .services-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      width: 100%;
+    }
+    .section-title {
+      font-size: clamp(34px, 5vw, 64px);
+      font-weight: 900; letter-spacing: -0.03em; line-height: 1;
+    }
+    .section-title em { font-style: italic; font-weight: 300; color: var(--blue); }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .service-card {
+      background: var(--white); padding: 44px 36px;
+      position: relative; overflow: hidden; cursor: default;
+      transition: background 0.3s;
+    }
+    .service-card:hover { background: var(--blue); }
+    .service-card:hover .service-num,
+    .service-card:hover .service-name { color: var(--white); }
+    .service-card:hover .service-desc { color: rgba(255,255,255,0.65); opacity: 1; }
+    .service-card:hover .service-line { background: var(--gold); }
+    .service-num {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em;
+      color: var(--gold); margin-bottom: 20px; transition: color 0.3s;
+    }
+    .service-line { width: 28px; height: 2px; background: var(--blue); margin-bottom: 18px; transition: background 0.3s; }
+    .service-name { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 12px; transition: color 0.3s; }
+    .service-desc { font-size: 0.85rem; line-height: 1.65; color: var(--blue); opacity: 0.7; transition: color 0.3s, opacity 0.3s; }
+    .service-card--wide { grid-column: 1 / -1; }
+
+    /* ── PROJECTS ── */
+    .projects { background: var(--white); padding: var(--section-y) var(--gutter); }
+    .projects-inner { width: 100%; max-width: var(--content-max); margin: 0 auto; }
+    .projects-header { margin-bottom: clamp(2rem, 5vw, 4rem); }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 324px)); gap: clamp(20px, 3vw, 30px); justify-content: start; }
+    .project-card { width: min(100%, 324px); background: #ededed; overflow: hidden; }
+    .project-carousel {
+      position: relative; overflow: hidden; width: calc(100% - 24px);
+      aspect-ratio: 1 / 1; margin: 12px auto 0; background: #e3e3e3;
+    }
+    .project-carousel-track { display: flex; height: 100%; transition: transform 0.55s cubic-bezier(.22,.61,.36,1); }
+    .project-carousel-slide { display: block; width: 100%; height: 100%; flex: 0 0 100%; object-fit: cover; }
+    .project-carousel-controls {
+      position: absolute; inset: auto 16px 16px; display: flex; align-items: center;
+      justify-content: space-between; gap: 14px; pointer-events: none;
+    }
+    .project-carousel-arrow {
+      display: grid; place-items: center; width: 42px; height: 42px; padding: 0;
+      border: 1px solid rgba(255,255,255,0.5); border-radius: 50%;
+      background: rgba(20,18,45,0.52); color: var(--white); cursor: pointer;
+      pointer-events: auto; box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .project-carousel-arrow svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .project-carousel-arrow:hover { transform: scale(1.08); background: var(--blue); border-color: var(--gold); color: var(--gold); }
+    .project-carousel-arrow:active { transform: scale(0.96); }
+    .project-carousel-arrow:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    .project-carousel-dots { display: flex; gap: 7px; padding: 9px 11px; border-radius: 20px; background: rgba(0,0,0,0.38); }
+    .project-carousel-dot { width: 6px; height: 6px; padding: 0; border: 0; border-radius: 50%; background: rgba(255,255,255,0.5); }
+    .project-carousel-dot.is-active { background: var(--gold); }
+    .project-card-body { padding: 22px 18px 24px; }
+    .project-card-meta {
+      margin-bottom: 12px; color: var(--blue); font-size: 0.67rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase;
+    }
+    .project-card-title { margin-bottom: 12px; font-size: 25px; font-weight: 900; line-height: 1.08; }
+    .project-card-text { max-width: 620px; color: rgba(0,0,0,0.65); font-size: 0.8rem; line-height: 1.6; }
+    .project-card-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+    .project-card-link {
+      display: inline-flex; align-items: center; justify-content: center; min-height: 38px;
+      padding: 0 15px; border: 1px solid var(--blue); color: var(--blue); text-decoration: none;
+      font-size: 0.61rem; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+    }
+    .project-card-link:hover { background: var(--blue); color: var(--white); }
+    .project-card-link--primary { background: var(--blue); color: var(--white); }
+    .project-card-link--primary:hover { background: var(--gold); border-color: var(--gold); color: var(--blue); }
+
+    /* ── BLOG ── */
+    .blog-section { padding: var(--section-y) 0; background: var(--white); overflow: hidden; }
+    .blog-header {
+      padding: 0 var(--gutter); margin-bottom: clamp(2rem, 4vw, 3.25rem);
+      display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      max-width: var(--content-max);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .blog-link {
+      font-size: 0.73rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue); text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .blog-link::after { content: '→'; }
+    .carousel-outer { overflow: hidden; position: relative; }
+    .carousel-outer::before, .carousel-outer::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none;
+    }
+    .carousel-outer::before { left: 0; background: linear-gradient(to right, white, transparent); }
+    .carousel-outer::after  { right: 0; background: linear-gradient(to left, white, transparent); }
+    .carousel-track {
+      display: flex; gap: clamp(1rem, 2.5vw, 1.5rem); padding: 12px var(--gutter);
+      width: max-content;
+      animation: carousel-scroll 45s linear infinite;
+    }
+    .carousel-track:hover { animation-play-state: paused; }
+    @keyframes carousel-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .blog-card {
+      width: clamp(260px, 28vw, 300px); flex-shrink: 0; text-decoration: none; color: inherit;
+      display: block; border-radius: 3px; overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .blog-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(26,16,176,0.12); }
+    .blog-card-img { width: 100%; height: 190px; object-fit: cover; display: block; }
+    .blog-card-img-ph { width: 100%; height: 190px; background: linear-gradient(135deg, #e8eaf6, #c5cae9); }
+    .blog-card-body { padding: 22px; }
+    .blog-card-meta {
+      font-size: 0.67rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .blog-card-meta span { color: var(--muted); font-weight: 400; }
+    .blog-card-title {
+      font-size: 0.95rem; font-weight: 700; line-height: 1.4;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .carousel-msg { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 0.9rem; }
+    .carousel-msg a { color: var(--blue); font-weight: 600; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      background: var(--blue-dk);
+      padding: var(--section-y) var(--gutter);
+      max-width: 100%;
+    }
+    .testimonials-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      width: 100%;
+    }
+    .testimonials .label { color: var(--gold); }
+    .testimonials .label::before { background: var(--gold); }
+    .test-heading {
+      font-size: clamp(34px, 5vw, 60px); font-weight: 900;
+      letter-spacing: -0.03em; color: var(--white); line-height: 1.05;
+      margin-bottom: 60px; max-width: 560px;
+    }
+    .test-heading em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.35); }
+    .reviews-widget {
+      min-height: 160px;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) rgba(255,255,255,0.12);
+    }
+    .reviews-widget::-webkit-scrollbar { height: 8px; }
+    .reviews-widget::-webkit-scrollbar-track { background: rgba(255,255,255,0.08); }
+    .reviews-widget::-webkit-scrollbar-thumb { background: var(--gold); }
+    .reviews-widget > * {
+      width: 100%;
+    }
+    /* ── GOOGLE REVIEWS WIDGET ── */
+    .reviews-widget-wrap { width: 100%; }
+
+    /* Summary bar */
+    .gr-summary {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 40px; flex-wrap: wrap; gap: 20px;
+    }
+    .gr-summary-left { display: flex; align-items: center; gap: 18px; }
+    .gr-google-logo { width: 38px; height: 38px; flex-shrink: 0; }
+    .gr-score-block { display: flex; flex-direction: column; gap: 4px; }
+    .gr-score {
+      font-size: 2.2rem; font-weight: 900; color: var(--white);
+      line-height: 1; letter-spacing: -0.03em;
+    }
+    .gr-stars { display: flex; gap: 3px; }
+    .gr-stars svg { width: 16px; height: 16px; }
+    .gr-count {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+    }
+    .gr-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 24px; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      border: 1.5px solid rgba(245,197,24,0.5); border-radius: 2px;
+      color: var(--gold); text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .gr-cta:hover { background: rgba(245,197,24,0.1); border-color: var(--gold); }
+
+    /* Carousel */
+    .gr-carousel-outer { overflow: hidden; position: relative; }
+    .gr-carousel-outer::before, .gr-carousel-outer::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none;
+    }
+    .gr-carousel-outer::before { left: 0; background: linear-gradient(to right, var(--blue-dk), transparent); }
+    .gr-carousel-outer::after  { right: 0; background: linear-gradient(to left, var(--blue-dk), transparent); }
+    .gr-carousel-track {
+      display: flex; gap: 20px; width: max-content;
+      animation: gr-scroll 40s linear infinite;
+      padding: 8px 0 16px;
+    }
+    .gr-carousel-track:hover { animation-play-state: paused; }
+    @keyframes gr-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* Review card */
+    .gr-card {
+      width: 300px; flex-shrink: 0;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px; padding: 28px 24px;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .gr-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); }
+    .gr-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .gr-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--gold); color: #0d0d0d;
+      font-size: 1rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .gr-reviewer { font-size: 0.9rem; font-weight: 700; color: var(--white); }
+    .gr-date { font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 2px; }
+    .gr-card-stars { display: flex; gap: 2px; margin-bottom: 14px; }
+    .gr-card-stars svg { width: 14px; height: 14px; }
+    .gr-loading {
+      padding: 60px 40px; color: rgba(255,255,255,0.4);
+      font-size: 0.85rem; letter-spacing: 0.08em;
+    }
+    .gr-loading a { color: var(--gold); }
+    .gr-text {
+      font-size: 0.875rem; line-height: 1.7;
+      color: rgba(255,255,255,0.75);
+      display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden;
     }
 
-    .case-number { position: absolute; top: 1.25rem; right: 1.25rem; z-index: 1; width: 2.25rem; height: 2.25rem; display: grid; place-items: center; border-radius: 50%; background: var(--gold); color: var(--blue); font-size: .65rem; font-weight: 900; }
-    .case-body { flex: 1; padding: clamp(1.5rem, 3.5vw, 2.5rem); display: flex; flex-direction: column; }
-    .case-meta { margin-bottom: 1rem; color: var(--blue); font-size: .61rem; font-weight: 900; letter-spacing: .15em; line-height: 1.5; text-transform: uppercase; }
-    .case-title { max-width: 14ch; font-size: clamp(1.65rem, 3.3vw, 2.75rem); line-height: .95; letter-spacing: -.055em; text-transform: uppercase; }
-    .case-copy { margin: 1.25rem 0 2rem; color: var(--muted); font-size: .94rem; line-height: 1.7; }
-    .case-link { margin-top: auto; display: inline-flex; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 1.1rem; border-top: 1px solid var(--line); color: var(--blue); font-size: .67rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
-    .case-link span:last-child { color: var(--gold); font-size: 1.2rem; transition: transform .2s ease; }
-    .case-card:hover .case-link span:last-child { transform: translateX(5px); }
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--blue);
+      padding: var(--section-y) var(--gutter) max(2rem, env(safe-area-inset-bottom));
+    }
+    .site-footer-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      width: 100%;
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 32px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 32px;
+    }
+    .footer-name {
+      font-size: clamp(26px, 4.5vw, 52px); font-weight: 900;
+      letter-spacing: -0.02em; color: var(--white); line-height: 1;
+    }
+    .footer-name span { color: var(--gold); }
+    .footer-identity { display: flex; flex-direction: column; align-items: flex-start; }
+    .footer-platforms {
+      display: flex; align-items: center; flex-wrap: wrap;
+      gap: 14px 20px; max-width: 620px; margin-top: 28px;
+    }
+    .footer-platform-logo {
+      display: block; width: auto; height: 28px; max-width: 112px;
+      object-fit: contain; filter: invert(1); mix-blend-mode: screen;
+      opacity: 0.8;
+    }
+    .footer-platform-logo--square { height: 34px; max-width: 62px; }
+    .footer-platform-logo--wide { height: 25px; max-width: 105px; }
+    .footer-platform-logo--hubspot {
+      width: 60px; height: 23px; max-width: none;
+      object-fit: cover; object-position: center;
+    }
+    .footer-email {
+      font-size: clamp(0.8rem, 2vw, 0.85rem);
+      color: rgba(255,255,255,0.45);
+      text-decoration: none; font-weight: 500; transition: color 0.2s;
+      word-break: break-word;
+    }
+    .footer-email:hover { color: var(--gold); }
+    .social-links {
+      display: flex;
+      gap: clamp(1rem, 3vw, 2rem);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .social-links a {
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(255,255,255,0.45);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .social-links a:hover { color: var(--gold); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 0.68rem; color: rgba(255,255,255,0.22); letter-spacing: 0.06em; }
+    .footer-copy a { color: rgba(255,255,255,0.3); text-decoration: none; }
 
-    footer { padding: 2rem var(--gutter); background: var(--ink); color: rgba(255,255,255,.55); }
-    .footer-inner { width: min(100%, var(--max)); margin: 0 auto; display: flex; justify-content: space-between; gap: 1rem; font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
 
-    @media (max-width: 720px) {
-      .case-grid { grid-template-columns: 1fr; }
-      .work-header, .footer-inner { align-items: flex-start; flex-direction: column; }
-      .contact-link { font-size: .6rem; }
+    /* ── RESPONSIVE ── */
+
+    /* Widescreen */
+    @media (min-width: 1600px) {
+      :root { --content-max: 96rem; }
+      .hero-name .line span { font-size: clamp(120px, 8vw, 180px); }
+      .service-card { padding: 48px 40px; }
+    }
+
+    /* Laptop */
+    @media (max-width: 1199px) {
+      .intro { grid-template-columns: minmax(240px, 320px) minmax(0, 1fr); }
+      .carousel-outer::before, .carousel-outer::after { width: 72px; }
+    }
+
+    /* Tablet portrait — avoid huge hero gap */
+    @media (max-width: 1023px) and (orientation: portrait) {
+      .hero {
+        justify-content: flex-start;
+        padding-top: calc(var(--nav-h) + 1rem);
+      }
+      .hero-bottom { margin-top: 1.5rem; }
+    }
+
+    /* Tablet landscape & small laptop */
+    @media (max-width: 1023px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .service-card { padding: 36px 28px; }
+      .blog-header { align-items: flex-start; }
+      .blog-link { margin-top: 4px; }
+      .footer-top { align-items: flex-start; }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+    }
+
+    /* Tablet portrait & mobile — pull hero content up under nav */
+    @media (max-width: 767px) {
+      :root { --nav-h: 3.25rem; }
+      nav.site-nav {
+        justify-content: flex-start;
+      }
+      nav.site-nav .nav-links {
+        justify-content: flex-start;
+      }
+      .hero {
+        min-height: clamp(460px, 66svh, 620px);
+        min-height: clamp(460px, 66dvh, 620px);
+        justify-content: center;
+        padding-top: calc(var(--nav-h) + 1rem);
+        padding-bottom: calc(var(--nav-h) + 1rem);
+      }
+      .hero-bg-text {
+        top: 58%;
+        font-size: clamp(64px, 20vw, 110px);
+      }
+      .hero-bottom { margin-top: 1.25rem; }
+      .intro {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2.5rem;
+      }
+      .intro-photo-wrap { max-width: min(320px, 85vw); margin: 0 auto; }
+      .intro-content { padding: 0; }
+      .intro-content .label { justify-content: center; }
+      .intro-content .btn { margin: 0 auto; }
+      .intro-actions { justify-content: center; }
+      .case-access-form { grid-template-columns: 1fr; text-align: left; }
+      .blog-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .hero-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .hero-scroll::before { width: 24px; }
+      .test-heading { margin-bottom: 40px; max-width: none; }
+      .carousel-outer::before, .carousel-outer::after { width: 48px; }
+      .footer-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+      .footer-platforms { gap: 12px 16px; margin-top: 22px; }
+      .footer-platform-logo { height: 23px; max-width: 88px; }
+      .footer-platform-logo--square { height: 29px; max-width: 52px; }
+      .footer-platform-logo--hubspot {
+        width: 53px; height: 20px; max-width: none;
+      }
+    }
+
+    /* Tablet landscape — side-by-side intro when width allows */
+    @media (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+      .intro {
+        grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+        text-align: left;
+        gap: 2.5rem;
+      }
+      .intro-photo-wrap { margin: 0; max-width: 280px; }
+      .intro-content .label { justify-content: flex-start; }
+      .intro-content .btn { margin: 0; }
+    }
+
+    /* Mobile */
+    @media (max-width: 599px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .service-card--wide { grid-column: auto; }
+      .service-card { padding: 32px 24px; }
+      .hero {
+        min-height: clamp(430px, 62svh, 560px);
+        min-height: clamp(430px, 62dvh, 560px);
+      }
+      .hero-name .line span { font-size: clamp(48px, 14vw, 72px); }
+      .hero-bg-text { font-size: clamp(72px, 22vw, 120px); }
+      .hero-bottom { width: 100%; }
+      .hero-role, .hero-scroll { font-size: 0.65rem; }
+      .social-links {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 1.25rem 1.5rem;
+      }
+      .social-links a { font-size: 0.65rem; }
+      .footer-copy { line-height: 1.5; }
+      .carousel-outer::before, .carousel-outer::after { width: 32px; }
+      .blog-card { width: min(280px, 78vw); }
+    }
+
+    /* Small mobile */
+    @media (max-width: 379px) {
+      nav.site-nav .nav-links { gap: 0.85rem; }
+      nav.site-nav .nav-links a {
+        font-size: 0.58rem;
+        letter-spacing: 0.08em;
+      }
+      .hero-name .line span { font-size: clamp(40px, 12vw, 56px); }
+    }
+
+    /* Short landscape (phones, small tablets) */
+    @media (max-height: 520px) and (orientation: landscape) {
+      .hero {
+        min-height: auto;
+        justify-content: flex-start;
+        padding-top: calc(var(--nav-h) + 0.5rem);
+        padding-bottom: 1.75rem;
+      }
+      .hero-name .line span { font-size: clamp(36px, 10vh, 64px); }
+      .hero-bg-text { font-size: clamp(56px, 16vh, 96px); }
+      .hero-bottom { margin-top: 16px; flex-direction: row; align-items: center; width: 100%; }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .carousel-track, .gr-carousel-track { animation: none; }
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="./" aria-label="Ricreations home">Ric<span>reations</span></a>
-    <a class="contact-link" href="mailto:rchitagu@gmail.com">Discuss a project</a>
-  </header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-inner">
-        <p class="eyebrow">Ricardo Chitagu / Selected work</p>
-        <h1>Case Studies</h1>
-        <p class="hero-copy">A closer look at the strategy, systems and creative execution behind selected digital marketing and lead-generation projects.</p>
-      </div>
-    </section>
+  <!-- ── NAV ── -->
+  <nav class="site-nav" aria-label="Social links">
+    <div class="nav-links">
+      <a href="https://www.behance.net/rchitagu5164" target="_blank" rel="noopener">Behance</a>
+      <a href="https://www.tiktok.com/@rickichitagu" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://www.linkedin.com/in/ricardo-c-4a993895/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.pinterest.com/rchitagu/" target="_blank" rel="noopener">Pinterest</a>
+    </div>
+  </nav>
 
-    <section class="work" aria-labelledby="selected-work-title">
-      <div class="work-inner">
-        <div class="work-header">
-          <h2 id="selected-work-title">Selected projects</h2>
-          <p class="work-count">02 case studies</p>
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-bg-text">PROJECTS</div>
+    <div class="hero-name" id="heroName">
+      <div class="line"><span>CASE</span></div>
+      <div class="line gold"><span>STUDIES</span></div>
+    </div>
+    <div class="hero-bottom">
+      <p class="hero-role">Digital Marketing | Automation Systems | Lead Generation | Visual Design</p>
+      <p class="hero-scroll">Selected work</p>
+    </div>
+  </section>
+
+  <!-- ── SERVICES ── -->
+  <section class="services" id="services" hidden>
+    <div class="services-inner">
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-num">01</div>
+          <div class="service-line"></div>
+          <div class="service-name">AI Automation Systems</div>
+          <p class="service-desc">Designing connected AI-powered workflows that reduce repetitive work, improve response times and keep business processes moving automatically.</p>
         </div>
-
-        <div class="case-grid">
-          <article class="case-card">
-            <div class="case-visual">
-              <span class="case-number">01</span>
-              <img src="projects/azzar-electric-gate-motors/creatives/square/campaign-creative-01.jpg" alt="Azzar Electric Gate Motors lead-generation campaign creative">
-            </div>
-            <div class="case-body">
-              <p class="case-meta">Lead generation / CRM automation / SEO</p>
-              <h3 class="case-title">Azzar Electric Gate Motors</h3>
-              <p class="case-copy">A connected digital marketing system covering campaign creative, conversion-focused landing pages, reliable lead capture, CRM workflows and search visibility.</p>
-              <a class="case-link" href="projects/azzar-electric-gate-motors/case-study/azzar-electric-gate-motors-case-study.pdf" target="_blank" rel="noopener">
-                <span>View case study</span><span aria-hidden="true">&rarr;</span>
-              </a>
-            </div>
-          </article>
-
-          <article class="case-card">
-            <div class="case-visual case-visual--type">
-              <span class="case-number">02</span>
-              Kred
-            </div>
-            <div class="case-body">
-              <p class="case-meta">Financial services / Social growth / Leads</p>
-              <h3 class="case-title">Kredibility Finance</h3>
-              <p class="case-copy">A phased digital campaign combining brand-building, social media growth, Meta advertising and conversion tracking for a financial-services audience.</p>
-              <a class="case-link" href="projects/kredibility-finance/case-study/kredibility-finance-case-study.pdf" target="_blank" rel="noopener">
-                <span>View case study</span><span aria-hidden="true">&rarr;</span>
-              </a>
-            </div>
-          </article>
+        <div class="service-card">
+          <div class="service-num">02</div>
+          <div class="service-line"></div>
+          <div class="service-name">Marketing Automation &amp; CRM</div>
+          <p class="service-desc">Building lead-capture, follow-up and CRM systems that route enquiries, trigger personalised communication and give teams a clearer sales pipeline.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-num">03</div>
+          <div class="service-line"></div>
+          <div class="service-name">AI-Powered Campaigns</div>
+          <p class="service-desc">Combining audience insight, AI-assisted production and campaign strategy to create, test and optimise marketing more efficiently.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-num">04</div>
+          <div class="service-line"></div>
+          <div class="service-name">Conversion Systems</div>
+          <p class="service-desc">Creating landing pages, forms, tracking and automated journeys that turn attention into qualified enquiries and measurable action.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-num">05</div>
+          <div class="service-line"></div>
+          <div class="service-name">Digital Marketing</div>
+          <p class="service-desc">Data-informed strategy across social media, SEO, content and paid advertising — supported by automation and focused on sustainable growth.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-num">06</div>
+          <div class="service-line"></div>
+          <div class="service-name">Creative Direction &amp; Content</div>
+          <p class="service-desc">Campaign concepts, brand systems, motion and digital content shaped by human creative direction and accelerated by practical AI tools.</p>
+        </div>
+        <div class="service-card service-card--wide">
+          <div class="service-num">07</div>
+          <div class="service-line"></div>
+          <div class="service-name">Web &amp; AI Integrations</div>
+          <p class="service-desc">Fast, conversion-focused websites connected to AI assistants, CRM platforms, analytics and automated back-office workflows.</p>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <footer>
-    <div class="footer-inner">
-      <span>Ricreations / Ricardo Chitagu</span>
-      <span>Digital marketing / Automation / Visual design</span>
+  <!-- ── PROJECTS ── -->
+  <section class="projects" id="projects">
+    <div class="projects-inner">
+      <div class="projects-header">
+        <div class="label">Portfolio</div>
+        <h2 class="section-title">Selected <em>projects</em></h2>
+      </div>
+      <div class="projects-grid">
+        <article class="project-card">
+          <div class="project-carousel" data-project-carousel aria-label="Azzar Electric Gate Motors campaign creatives">
+            <div class="project-carousel-track">
+              <img class="project-carousel-slide" src="projects/azzar-electric-gate-motors/creatives/square/campaign-creative-01.jpg" alt="Azzar electric gate campaign creative 1">
+              <img class="project-carousel-slide" src="projects/azzar-electric-gate-motors/creatives/square/campaign-creative-02.jpg" alt="Azzar electric gate campaign creative 2" loading="lazy">
+              <img class="project-carousel-slide" src="projects/azzar-electric-gate-motors/creatives/square/campaign-creative-03.jpg" alt="Azzar electric gate campaign creative 3" loading="lazy">
+              <img class="project-carousel-slide" src="projects/azzar-electric-gate-motors/creatives/square/campaign-creative-04.jpg" alt="Azzar electric gate campaign creative 4" loading="lazy">
+            </div>
+            <div class="project-carousel-controls">
+              <button class="project-carousel-arrow" type="button" data-carousel-prev aria-label="Previous creative">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5 7.5 12l7 7"/></svg>
+              </button>
+              <div class="project-carousel-dots" aria-hidden="true"></div>
+              <button class="project-carousel-arrow" type="button" data-carousel-next aria-label="Next creative">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-meta">Digital campaign · Lead generation · SEO</p>
+            <h3 class="project-card-title">Azzar Electric Gate Motors</h3>
+            <p class="project-card-text">A full digital marketing build-out covering the landing page, reliable lead capture, Brevo CRM automation, content and SEO, with paid and organic campaign work documented as it progresses.</p>
+            <div class="project-card-actions">
+              <a class="project-card-link project-card-link--primary" href="projects/azzar-electric-gate-motors/case-study/azzar-electric-gate-motors-case-study.pdf" download>Download case study</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG TEMPORARILY DISABLED
+  <section class="blog-section" id="blog">
+    <div class="blog-header">
+      <div>
+        <div class="label">Insights</div>
+        <h2 class="section-title" style="font-size:clamp(26px,3.5vw,48px)">Latest from <em>the blog</em></h2>
+      </div>
+      <a href="mailto:rchitagu@gmail.com" class="blog-link">Request insights</a>
+    </div>
+    <div class="carousel-outer">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-msg">Loading posts…</div>
+      </div>
+    </div>
+  </section>
+  -->
+
+  <!-- ── TESTIMONIALS ── -->
+  <section class="testimonials" id="testimonials" hidden>
+    <div class="testimonials-inner">
+    <div class="label">Google Reviews</div>
+    <h2 class="test-heading">Client Proof</h2>
+    <div class="reviews-widget" aria-label="Ricardo Chitagu client reviews">
+      <script src="https://elfsightcdn.com/platform.js" async></script>
+      <div class="elfsight-app-8c665b81-0dd5-4245-b55c-91ff14baf416" data-elfsight-app-lazy></div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+    <div class="footer-top">
+      <div class="footer-identity">
+        <div class="footer-name">Ricardo<br><span>Chitagu</span></div>
+        <div class="footer-platforms" aria-label="Platforms and professional tools">
+          <img class="footer-platform-logo footer-platform-logo--square" src="assets/images/platforms/canva.png" alt="Canva">
+          <img class="footer-platform-logo footer-platform-logo--wide" src="assets/images/platforms/brevo.png" alt="Brevo">
+          <img class="footer-platform-logo" src="assets/images/platforms/digital-marketing-institute.png" alt="Digital Marketing Institute">
+          <img class="footer-platform-logo footer-platform-logo--square" src="assets/images/platforms/adobe.png" alt="Adobe">
+          <img class="footer-platform-logo footer-platform-logo--square" src="assets/images/platforms/meta.png" alt="Meta">
+          <img class="footer-platform-logo footer-platform-logo--wide footer-platform-logo--hubspot" src="assets/images/platforms/hubspot.png" alt="HubSpot">
+        </div>
+      </div>
+      <a href="mailto:rchitagu@gmail.com" class="footer-email">rchitagu@gmail.com</a>
+    </div>
+    <div class="footer-bottom">
+      <nav class="social-links" aria-label="Social links">
+        <a href="https://www.behance.net/rchitagu5164" target="_blank" rel="noopener">Behance</a>
+        <a href="https://www.tiktok.com/@rickichitagu" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.linkedin.com/in/ricardo-c-4a993895/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.pinterest.com/rchitagu/" target="_blank" rel="noopener">Pinterest</a>
+      </nav>
+      <p class="footer-copy">© <span id="currentYear">2026</span> Ricardo Chitagu · <a href="mailto:rchitagu@gmail.com">rchitagu@gmail.com</a></p>
+    </div>
     </div>
   </footer>
+
+  <script>
+  // ── LENIS SMOOTH SCROLL ──
+  const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((t) => lenis.raf(t * 1000));
+  gsap.ticker.lagSmoothing(0);
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+  // ── NAV: switch style once past the hero ──
+  const navEl = document.querySelector('nav.site-nav');
+  const heroEl = document.querySelector('.hero');
+  lenis.on('scroll', ({ scroll }) => {
+    const threshold = heroEl.offsetHeight * 0.75;
+    navEl.classList.toggle('scrolled', scroll > threshold);
+  });
+
+  // ── HERO TEXT — initial load animation ──
+  function animateHero() {
+    gsap.fromTo('#heroName .line span',
+      { translateY: '110%' },
+      { translateY: '0%', duration: 1.1, ease: 'power4.out', stagger: 0.12 }
+    );
+    gsap.fromTo('.hero-bottom',
+      { opacity: 0, y: 24 },
+      { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.7 }
+    );
+  }
+  animateHero();
+
+  // ── HERO TEXT — re-animate when scrolling back up into hero ──
+  ScrollTrigger.create({
+    trigger: '.hero',
+    start: 'top top',
+    end: 'bottom top',
+    onEnterBack: () => animateHero(),
+  });
+
+  // ── HELPER: animate in on scroll down, reverse when scrolling back past start ──
+  function st(trigger, targets, vars) {
+    gsap.from(targets, {
+      ...vars,
+      scrollTrigger: {
+        trigger,
+        start: 'top 88%',
+        toggleActions: 'play none none reverse',
+      }
+    });
+  }
+
+  // ── PHOTO REVEAL ──
+  gsap.to('#photoOverlay', {
+    scaleY: 0, duration: 1.2, ease: 'power4.inOut',
+    scrollTrigger: { trigger: '.intro', start: 'top 75%', toggleActions: 'play none none reverse' }
+  });
+  gsap.to('.intro-photo-wrap img', {
+    scale: 1, duration: 1.4, ease: 'power4.out',
+    scrollTrigger: { trigger: '.intro', start: 'top 75%', toggleActions: 'play none none reverse' }
+  });
+
+  // ── INTRO CONTENT ──
+  st('.intro-content', '.intro-content > *', { opacity: 0, y: 40, duration: 0.9, ease: 'power3.out', stagger: 0.1 });
+
+  // ── SERVICES ──
+  st('.services-grid', '.service-card', { opacity: 0, y: 50, duration: 0.7, ease: 'power3.out', stagger: 0.08 });
+
+  // ── PROJECTS ──
+  st('.projects', '.projects-header, .project-card', { opacity: 0, y: 40, duration: 0.8, ease: 'power3.out', stagger: 0.12 });
+
+  document.querySelectorAll('[data-project-carousel]').forEach((carousel) => {
+    const track = carousel.querySelector('.project-carousel-track');
+    const slides = [...carousel.querySelectorAll('.project-carousel-slide')];
+    const dotsWrap = carousel.querySelector('.project-carousel-dots');
+    let activeSlide = 0;
+    let autoAdvance;
+
+    slides.forEach((_, index) => {
+      const dot = document.createElement('span');
+      dot.className = `project-carousel-dot${index === 0 ? ' is-active' : ''}`;
+      dotsWrap.appendChild(dot);
+    });
+
+    const showSlide = (index) => {
+      activeSlide = (index + slides.length) % slides.length;
+      track.style.transform = `translateX(-${activeSlide * 100}%)`;
+      [...dotsWrap.children].forEach((dot, i) => dot.classList.toggle('is-active', i === activeSlide));
+    };
+    const startAutoAdvance = () => {
+      clearInterval(autoAdvance);
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        autoAdvance = setInterval(() => showSlide(activeSlide + 1), 4500);
+      }
+    };
+
+    carousel.querySelector('[data-carousel-prev]').addEventListener('click', () => { showSlide(activeSlide - 1); startAutoAdvance(); });
+    carousel.querySelector('[data-carousel-next]').addEventListener('click', () => { showSlide(activeSlide + 1); startAutoAdvance(); });
+    carousel.addEventListener('mouseenter', () => clearInterval(autoAdvance));
+    carousel.addEventListener('mouseleave', startAutoAdvance);
+    carousel.addEventListener('focusin', () => clearInterval(autoAdvance));
+    carousel.addEventListener('focusout', startAutoAdvance);
+    startAutoAdvance();
+  });
+
+  /* BLOG TEMPORARILY DISABLED
+  st('.blog-header', '.blog-header > *', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', stagger: 0.1 });
+  */
+
+  // ── TESTIMONIALS ──
+  st('.testimonials', '.test-heading', { opacity: 0, y: 40, duration: 1, ease: 'power3.out' });
+
+  const reviewsWidget = document.querySelector('.reviews-widget');
+  if (reviewsWidget && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let reviewsPaused = false;
+    let reviewsDirection = 1;
+
+    reviewsWidget.addEventListener('mouseenter', () => { reviewsPaused = true; });
+    reviewsWidget.addEventListener('mouseleave', () => { reviewsPaused = false; });
+    reviewsWidget.addEventListener('touchstart', () => { reviewsPaused = true; }, { passive: true });
+    reviewsWidget.addEventListener('touchend', () => { reviewsPaused = false; }, { passive: true });
+
+    const autoScrollReviews = () => {
+      const maxScroll = reviewsWidget.scrollWidth - reviewsWidget.clientWidth;
+      if (!reviewsPaused && maxScroll > 8) {
+        reviewsWidget.scrollLeft += reviewsDirection * 0.45;
+        if (reviewsWidget.scrollLeft >= maxScroll - 2) reviewsDirection = -1;
+        if (reviewsWidget.scrollLeft <= 2) reviewsDirection = 1;
+      }
+      requestAnimationFrame(autoScrollReviews);
+    };
+
+  requestAnimationFrame(autoScrollReviews);
+  }
+
+  /* BLOG POSTS TEMPORARILY DISABLED
+  const WP_BASE = '';
+  const API_URL = WP_BASE + '/wp-json/wp/v2/posts?per_page=12&_embed=1';
+  const track   = document.getElementById('carouselTrack');
+
+  function fmtDate(s) {
+    return new Date(s).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  }
+  function stripHtml(h) { const d = document.createElement('div'); d.innerHTML = h; return d.textContent || ''; }
+
+  function makeCard(post) {
+    const title = post.title.rendered;
+    const date  = fmtDate(post.date);
+    const link  = post.link;
+    const cats  = post._embedded?.['wp:term']?.[0] || [];
+    const cat   = cats[0]?.name || 'Blog';
+    let imgUrl  = '';
+    try { const m = post._embedded['wp:featuredmedia']; if (m?.[0]?.source_url) imgUrl = m[0].source_url; } catch(e){}
+    const a = document.createElement('a');
+    a.className = 'blog-card';
+    a.href = link; a.target = '_blank'; a.rel = 'noopener';
+    a.innerHTML = `
+      ${imgUrl ? `<img class="blog-card-img" src="${imgUrl}" alt="" loading="lazy">` : `<div class="blog-card-img-ph"></div>`}
+      <div class="blog-card-body">
+        <div class="blog-card-meta">${cat} <span>${date}</span></div>
+        <div class="blog-card-title">${title}</div>
+      </div>`;
+    return a;
+  }
+
+  fetch(API_URL)
+    .then(r => { if (!r.ok) throw 0; return r.json(); })
+    .then(posts => {
+      if (!posts.length) throw 0;
+      track.innerHTML = '';
+      [...posts, ...posts].forEach(p => track.appendChild(makeCard(p)));
+      track.style.animationDuration = Math.max(40, posts.length * 5) + 's';
+    })
+    .catch(() => {
+      track.innerHTML = `<div class="carousel-msg">Insights are being refreshed. <a href="mailto:rchitagu@gmail.com">Request recent work →</a></div>`;
+    });
+  */
+
+  // ── CASE STUDY ACCESS ──
+  const caseAccessToggle = document.getElementById('caseAccessToggle');
+  const caseAccessForm = document.getElementById('caseAccessForm');
+
+  if (caseAccessToggle && caseAccessForm) {
+    caseAccessToggle.addEventListener('click', () => {
+      const willOpen = caseAccessForm.hidden;
+      caseAccessForm.hidden = !willOpen;
+      caseAccessToggle.setAttribute('aria-expanded', String(willOpen));
+      caseAccessToggle.textContent = willOpen ? 'Close Form' : 'Case Studies';
+      if (willOpen) document.getElementById('caseAccessName').focus();
+    });
+
+    caseAccessForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!caseAccessForm.reportValidity()) return;
+
+      const submitButton = caseAccessForm.querySelector('[type="submit"]');
+      const status = document.getElementById('caseAccessStatus');
+      const originalLabel = submitButton.textContent;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending…';
+      status.classList.remove('is-error');
+      status.textContent = 'Sending your request…';
+
+      try {
+        const response = await fetch(caseAccessForm.action, {
+          method: 'POST',
+          body: new FormData(caseAccessForm),
+          headers: { Accept: 'application/json' }
+        });
+        const result = await response.json();
+        if (!response.ok || !result.success) throw new Error(result.message || 'Submission failed');
+
+        caseAccessForm.reset();
+        status.textContent = 'Thank you — your details have been received.';
+        submitButton.textContent = 'Submitted';
+      } catch (error) {
+        status.classList.add('is-error');
+        status.textContent = 'Your details could not be sent. Please try again or email me directly.';
+        submitButton.disabled = false;
+        submitButton.textContent = originalLabel;
+      }
+    });
+  }
+  </script>
 </body>
 </html>

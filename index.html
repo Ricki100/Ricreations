@@ -289,6 +289,9 @@
     }
     .case-access-form input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,16,176,0.1); }
     .case-access-submit { border: 0; white-space: nowrap; cursor: pointer; font-family: inherit; }
+    .case-access-submit:disabled { cursor: wait; opacity: .65; transform: none; }
+    .case-access-status { grid-column: 1 / -1; min-height: 1.2em; font-size: .74rem; line-height: 1.5; color: var(--muted); }
+    .case-access-status.is-error { color: #b42318; }
 
     /* ── SERVICES ── */
     .services {
@@ -810,15 +813,19 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
         <button class="btn btn-blue" type="button" id="caseAccessToggle" aria-expanded="false" aria-controls="caseAccessForm">
-          Request Case Studies
+          Case Studies
         </button>
       </div>
-      <form class="case-access-form" id="caseAccessForm" hidden>
+      <form class="case-access-form" id="caseAccessForm" action="https://api.web3forms.com/submit" method="POST" hidden>
+        <input type="hidden" name="access_key" value="ad735dbf-e444-4ade-ade0-9cd579136007">
+        <input type="hidden" name="subject" value="New case study access request">
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
         <label for="caseAccessName">Your name</label>
         <input id="caseAccessName" name="name" type="text" placeholder="Your name" autocomplete="name" required>
         <label for="caseAccessEmail">Your email</label>
         <input id="caseAccessEmail" name="email" type="email" placeholder="Your email" autocomplete="email" required>
-        <button class="btn btn-gold case-access-submit" type="submit">View Case Studies</button>
+        <button class="btn btn-gold case-access-submit" type="submit">Submit</button>
+        <p class="case-access-status" id="caseAccessStatus" role="status" aria-live="polite"></p>
       </form>
     </div>
   </section>
@@ -1156,15 +1163,40 @@
       const willOpen = caseAccessForm.hidden;
       caseAccessForm.hidden = !willOpen;
       caseAccessToggle.setAttribute('aria-expanded', String(willOpen));
-      caseAccessToggle.textContent = willOpen ? 'Close Form' : 'Request Case Studies';
+      caseAccessToggle.textContent = willOpen ? 'Close Form' : 'Case Studies';
       if (willOpen) document.getElementById('caseAccessName').focus();
     });
 
-    caseAccessForm.addEventListener('submit', (event) => {
+    caseAccessForm.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (!caseAccessForm.reportValidity()) return;
-      sessionStorage.setItem('caseStudiesAccess', 'granted');
-      window.location.href = 'case-studies/';
+
+      const submitButton = caseAccessForm.querySelector('[type="submit"]');
+      const status = document.getElementById('caseAccessStatus');
+      const originalLabel = submitButton.textContent;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending…';
+      status.classList.remove('is-error');
+      status.textContent = 'Sending your request…';
+
+      try {
+        const response = await fetch(caseAccessForm.action, {
+          method: 'POST',
+          body: new FormData(caseAccessForm),
+          headers: { Accept: 'application/json' }
+        });
+        const result = await response.json();
+        if (!response.ok || !result.success) throw new Error(result.message || 'Submission failed');
+
+        caseAccessForm.reset();
+        status.textContent = 'Thank you — your details have been received.';
+        submitButton.textContent = 'Submitted';
+      } catch (error) {
+        status.classList.add('is-error');
+        status.textContent = 'Your details could not be sent. Please try again or email me directly.';
+        submitButton.disabled = false;
+        submitButton.textContent = originalLabel;
+      }
     });
   }
   </script>
