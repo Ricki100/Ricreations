@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-ZW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selected Case Studies | Ricardo Chitagu</title>
+  <meta name="description" content="Selected digital marketing, lead generation and automation case studies by Ricardo Chitagu.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <link rel="icon" type="image/png" href="assets/images/brand/favicon.png?v=2">
+  <link rel="apple-touch-icon" href="assets/images/brand/favicon.png?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #1a10b0;
+      --blue-dark: #0f0a75;
+      --gold: #f5c518;
+      --white: #fff;
+      --off: #f4f4f0;
+      --ink: #11111a;
+      --muted: #676773;
+      --line: rgba(17, 17, 26, .14);
+      --gutter: clamp(1.25rem, 4.5vw, 4rem);
+      --max: 90rem;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Inter", sans-serif; background: var(--off); color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; }
+
+    .topbar {
+      min-height: 4.5rem;
+      padding: 1rem var(--gutter);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--blue);
+      color: var(--white);
+      border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+
+    .brand {
+      font-size: .72rem;
+      font-weight: 900;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .brand span { color: var(--gold); }
+
+    .contact-link {
+      font-size: .66rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(5rem, 10vw, 9rem) var(--gutter) clamp(4rem, 8vw, 7rem);
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .hero::after {
+      content: "WORK";
+      position: absolute;
+      right: -.04em;
+      bottom: -.16em;
+      font-size: clamp(9rem, 28vw, 28rem);
+      line-height: .8;
+      font-weight: 900;
+      letter-spacing: -.08em;
+      color: rgba(255,255,255,.035);
+      pointer-events: none;
+    }
+
+    .hero-inner, .work-inner { width: min(100%, var(--max)); margin: 0 auto; }
+    .eyebrow { margin-bottom: 1.5rem; color: var(--gold); font-size: .68rem; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      max-width: 8ch;
+      font-size: clamp(4rem, 12vw, 10.5rem);
+      line-height: .82;
+      letter-spacing: -.075em;
+      text-transform: uppercase;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+      max-width: 46rem;
+      margin-top: clamp(2rem, 5vw, 3.5rem);
+      font-size: clamp(1rem, 1.7vw, 1.25rem);
+      line-height: 1.65;
+      color: rgba(255,255,255,.7);
+    }
+
+    .work { padding: clamp(4rem, 9vw, 8rem) var(--gutter); }
+    .work-header { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: clamp(2rem, 5vw, 4rem); }
+    .work-header h2 { font-size: clamp(2rem, 5vw, 4rem); line-height: .95; letter-spacing: -.055em; text-transform: uppercase; }
+    .work-count { font-size: .64rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; color: var(--blue); }
+
+    .case-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .case-card { display: flex; flex-direction: column; min-height: 100%; background: var(--white); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transition: transform .25s ease, box-shadow .25s ease; }
+    .case-card:hover { position: relative; z-index: 2; transform: translateY(-6px); box-shadow: 0 22px 55px rgba(17,17,26,.13); }
+    .case-visual { position: relative; overflow: hidden; aspect-ratio: 16 / 10; background: var(--blue); }
+    .case-visual img { height: 100%; object-fit: cover; transition: transform .55s ease; }
+    .case-card:hover .case-visual img { transform: scale(1.035); }
+
+    .case-visual--type {
+      display: flex;
+      align-items: flex-end;
+      padding: clamp(1.5rem, 4vw, 3rem);
+      background: linear-gradient(145deg, #11111a, var(--blue-dark));
+      color: var(--gold);
+      font-size: clamp(3rem, 8vw, 7.5rem);
+      font-weight: 900;
+      line-height: .8;
+      letter-spacing: -.075em;
+      text-transform: uppercase;
+    }
+
+    .case-number { position: absolute; top: 1.25rem; right: 1.25rem; z-index: 1; width: 2.25rem; height: 2.25rem; display: grid; place-items: center; border-radius: 50%; background: var(--gold); color: var(--blue); font-size: .65rem; font-weight: 900; }
+    .case-body { flex: 1; padding: clamp(1.5rem, 3.5vw, 2.5rem); display: flex; flex-direction: column; }
+    .case-meta { margin-bottom: 1rem; color: var(--blue); font-size: .61rem; font-weight: 900; letter-spacing: .15em; line-height: 1.5; text-transform: uppercase; }
+    .case-title { max-width: 14ch; font-size: clamp(1.65rem, 3.3vw, 2.75rem); line-height: .95; letter-spacing: -.055em; text-transform: uppercase; }
+    .case-copy { margin: 1.25rem 0 2rem; color: var(--muted); font-size: .94rem; line-height: 1.7; }
+    .case-link { margin-top: auto; display: inline-flex; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 1.1rem; border-top: 1px solid var(--line); color: var(--blue); font-size: .67rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+    .case-link span:last-child { color: var(--gold); font-size: 1.2rem; transition: transform .2s ease; }
+    .case-card:hover .case-link span:last-child { transform: translateX(5px); }
+
+    footer { padding: 2rem var(--gutter); background: var(--ink); color: rgba(255,255,255,.55); }
+    .footer-inner { width: min(100%, var(--max)); margin: 0 auto; display: flex; justify-content: space-between; gap: 1rem; font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+
+    @media (max-width: 720px) {
+      .case-grid { grid-template-columns: 1fr; }
+      .work-header, .footer-inner { align-items: flex-start; flex-direction: column; }
+      .contact-link { font-size: .6rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Ricreations home">Ric<span>reations</span></a>
+    <a class="contact-link" href="mailto:rchitagu@gmail.com">Discuss a project</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Ricardo Chitagu / Selected work</p>
+        <h1>Case Studies</h1>
+        <p class="hero-copy">A closer look at the strategy, systems and creative execution behind selected digital marketing and lead-generation projects.</p>
+      </div>
+    </section>
+
+    <section class="work" aria-labelledby="selected-work-title">
+      <div class="work-inner">
+        <div class="work-header">
+          <h2 id="selected-work-title">Selected projects</h2>
+          <p class="work-count">02 case studies</p>
+        </div>
+
+        <div class="case-grid">
+          <article class="case-card">
+            <div class="case-visual">
+              <span class="case-number">01</span>
+              <img src="projects/azzar-electric-gate-motors/creatives/square/campaign-creative-01.jpg" alt="Azzar Electric Gate Motors lead-generation campaign creative">
+            </div>
+            <div class="case-body">
+              <p class="case-meta">Lead generation / CRM automation / SEO</p>
+              <h3 class="case-title">Azzar Electric Gate Motors</h3>
+              <p class="case-copy">A connected digital marketing system covering campaign creative, conversion-focused landing pages, reliable lead capture, CRM workflows and search visibility.</p>
+              <a class="case-link" href="projects/azzar-electric-gate-motors/case-study/azzar-electric-gate-motors-case-study.pdf" target="_blank" rel="noopener">
+                <span>View case study</span><span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="case-card">
+            <div class="case-visual case-visual--type">
+              <span class="case-number">02</span>
+              Kred
+            </div>
+            <div class="case-body">
+              <p class="case-meta">Financial services / Social growth / Leads</p>
+              <h3 class="case-title">Kredibility Finance</h3>
+              <p class="case-copy">A phased digital campaign combining brand-building, social media growth, Meta advertising and conversion tracking for a financial-services audience.</p>
+              <a class="case-link" href="projects/kredibility-finance/case-study/kredibility-finance-case-study.pdf" target="_blank" rel="noopener">
+                <span>View case study</span><span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>Ricreations / Ricardo Chitagu</span>
+      <span>Digital marketing / Automation / Visual design</span>
+    </div>
+  </footer>
+</body>
+</html>
