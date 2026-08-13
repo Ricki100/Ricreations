@@ -209,9 +209,7 @@
     /* ── INTRO ── */
     .intro {
       padding: var(--section-y) var(--gutter);
-      display: grid;
-      grid-template-columns: minmax(260px, 380px) minmax(0, 1fr);
-      gap: clamp(2.5rem, 6vw, 5rem);
+      display: block;
       align-items: center;
       max-width: var(--content-max);
       margin: 0 auto;
@@ -237,7 +235,7 @@
       background: var(--blue);
       transform-origin: bottom;
     }
-    .intro-content { padding: 20px 0; }
+    .intro-content { width: min(100%, 760px); padding: 20px 0; }
     .label {
       font-size: 0.68rem; font-weight: 700;
       letter-spacing: 0.2em; text-transform: uppercase;
@@ -793,19 +791,13 @@
 
   <!-- ── INTRO ── -->
   <section class="intro" id="intro">
-    <div class="intro-photo-wrap">
-      <div class="intro-photo-overlay" id="photoOverlay"></div>
-      <img src="assets/images/profile/ricardo-chitagu.png" alt="Ricardo Chitagu"
-        onerror="this.src='https://ui-avatars.com/api/?name=Ricardo+Chitagu&size=600&background=1a10b0&color=f5c518&bold=true'">
-    </div>
     <div class="intro-content">
       <div class="label">About</div>
       <h2 class="intro-heading">Ideas that <em>move</em><br>people to act</h2>
       <p class="intro-text">
-        I'm Ricardo Chitagu — Art Director, Motion Designer and Creative Marketer.
-        I help brands build campaigns, identities and content
-        that don't just look good — they perform. From concept to screen, across
-        print, digital, video and motion.
+        I build digital marketing and automation systems that connect campaigns,
+        lead generation, CRM workflows and conversion-focused websites — supported
+        by strong visual design that turns attention into action.
       </p>
       <div class="intro-actions">
         <a href="mailto:rchitagu@gmail.com" class="btn btn-gold">
@@ -1027,16 +1019,6 @@
       }
     });
   }
-
-  // ── PHOTO REVEAL ──
-  gsap.to('#photoOverlay', {
-    scaleY: 0, duration: 1.2, ease: 'power4.inOut',
-    scrollTrigger: { trigger: '.intro', start: 'top 75%', toggleActions: 'play none none reverse' }
-  });
-  gsap.to('.intro-photo-wrap img', {
-    scale: 1, duration: 1.4, ease: 'power4.out',
-    scrollTrigger: { trigger: '.intro', start: 'top 75%', toggleActions: 'play none none reverse' }
-  });
 
   // ── INTRO CONTENT ──
   st('.intro-content', '.intro-content > *', { opacity: 0, y: 40, duration: 0.9, ease: 'power3.out', stagger: 0.1 });
