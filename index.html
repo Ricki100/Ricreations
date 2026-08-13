@@ -268,6 +268,27 @@
       box-shadow: 0 4px 20px rgba(245,197,24,0.3);
     }
     .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(245,197,24,0.45); }
+    .intro-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .btn-blue {
+      border: 2px solid var(--blue); background: transparent; color: var(--blue);
+      cursor: pointer; font-family: inherit;
+    }
+    .btn-blue:hover { transform: translateY(-3px); background: var(--blue); color: var(--white); box-shadow: 0 8px 30px rgba(26,16,176,0.2); }
+    .case-access-form {
+      display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px;
+      margin-top: 18px; padding: 16px; max-width: 720px;
+      background: var(--off); border-left: 3px solid var(--gold);
+    }
+    .case-access-form[hidden] { display: none; }
+    .case-access-form label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .case-access-form input {
+      width: 100%; min-width: 0; padding: 12px 13px;
+      border: 1px solid rgba(26,16,176,0.2); border-radius: 2px;
+      background: var(--white); color: var(--blue); font: inherit; font-size: 0.84rem;
+      outline: none;
+    }
+    .case-access-form input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,16,176,0.1); }
+    .case-access-submit { border: 0; white-space: nowrap; cursor: pointer; font-family: inherit; }
 
     /* ── SERVICES ── */
     .services {
@@ -649,6 +670,8 @@
       .intro-content { padding: 0; }
       .intro-content .label { justify-content: center; }
       .intro-content .btn { margin: 0 auto; }
+      .intro-actions { justify-content: center; }
+      .case-access-form { grid-template-columns: 1fr; text-align: left; }
       .blog-header {
         flex-direction: column;
         align-items: flex-start;
@@ -781,10 +804,22 @@
         that don't just look good — they perform. From concept to screen, across
         print, digital, video and motion.
       </p>
-      <a href="mailto:rchitagu@gmail.com" class="btn btn-gold">
-        Get in Touch
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+      <div class="intro-actions">
+        <a href="mailto:rchitagu@gmail.com" class="btn btn-gold">
+          Get in Touch
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <button class="btn btn-blue" type="button" id="caseAccessToggle" aria-expanded="false" aria-controls="caseAccessForm">
+          Request Case Studies
+        </button>
+      </div>
+      <form class="case-access-form" id="caseAccessForm" hidden>
+        <label for="caseAccessName">Your name</label>
+        <input id="caseAccessName" name="name" type="text" placeholder="Your name" autocomplete="name" required>
+        <label for="caseAccessEmail">Your email</label>
+        <input id="caseAccessEmail" name="email" type="email" placeholder="Your email" autocomplete="email" required>
+        <button class="btn btn-gold case-access-submit" type="submit">View Case Studies</button>
+      </form>
     </div>
   </section>
 
@@ -1111,6 +1146,27 @@
       track.innerHTML = `<div class="carousel-msg">Insights are being refreshed. <a href="mailto:rchitagu@gmail.com">Request recent work →</a></div>`;
     });
   */
+
+  // ── CASE STUDY ACCESS ──
+  const caseAccessToggle = document.getElementById('caseAccessToggle');
+  const caseAccessForm = document.getElementById('caseAccessForm');
+
+  if (caseAccessToggle && caseAccessForm) {
+    caseAccessToggle.addEventListener('click', () => {
+      const willOpen = caseAccessForm.hidden;
+      caseAccessForm.hidden = !willOpen;
+      caseAccessToggle.setAttribute('aria-expanded', String(willOpen));
+      caseAccessToggle.textContent = willOpen ? 'Close Form' : 'Request Case Studies';
+      if (willOpen) document.getElementById('caseAccessName').focus();
+    });
+
+    caseAccessForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!caseAccessForm.reportValidity()) return;
+      sessionStorage.setItem('caseStudiesAccess', 'granted');
+      window.location.href = 'case-studies/';
+    });
+  }
   </script>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="../">
   <title>Case Study | Ricreations</title>
   <meta name="description" content="Case study by Ricardo Chitagu — Ricreations">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -184,13 +185,13 @@
 <body>
 
   <header class="topbar" data-nav>
-    <a class="brand" href="index.html">Ric<span>reations</span></a>
+    <a class="brand" href="./">Ric<span>reations</span></a>
     <nav>
       <ul class="nav-links">
-        <li><a href="index.html#intro">About</a></li>
-        <li><a href="index.html#services">Services</a></li>
-        <li><a href="index.html#projects">Work</a></li>
-        <li><a href="index.html#testimonials">Reviews</a></li>
+        <li><a href="./#intro">About</a></li>
+        <li><a href="./#services">Services</a></li>
+        <li><a href="./#projects">Work</a></li>
+        <li><a href="./#testimonials">Reviews</a></li>
       </ul>
     </nav>
     <a class="nav-cta" href="mailto:rchitagu@gmail.com">Start a brief</a>
@@ -235,7 +236,7 @@
           <div>
             <p style="font-size:.7rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:1rem;">404</p>
             <h1 style="font-size:3rem;font-weight:900;letter-spacing:-.06em;text-transform:uppercase;margin-bottom:1.5rem;">Case study not found</h1>
-            <a href="index.html#projects" style="font-size:.7rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);">&larr; Back to all work</a>
+            <a href="case-studies/" style="font-size:.7rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);">&larr; Back to all work</a>
           </div>
         </div>`;
       return;
@@ -350,7 +351,7 @@
         <div class="cs-hero-bg" style="background:${cs.coverColor};"></div>
         <div class="cs-hero-word">${esc(cs.heroWord)}</div>
         <div class="cs-hero-inner">
-          <a class="cs-back" href="index.html#projects">All case studies</a>
+          <a class="cs-back" href="case-studies/">All case studies</a>
           <p class="cs-eyebrow">Case Study &mdash; ${esc(cs.number)}</p>
           <h1>${cs.client.replace('&', '&amp;')}</h1>
           <div class="cs-hero-meta">${renderMeta(cs.meta)}</div>
@@ -430,7 +431,7 @@
             <p class="next-label">Next case study</p>
             <p class="next-title">${esc(cs.nextLabel)}</p>
           </div>
-          <a class="next-arrow" href="case-study.html?id=${esc(cs.next)}">View case study &rarr;</a>
+          <a class="next-arrow" href="case-study/?id=${esc(cs.next)}">View case study &rarr;</a>
         </div>
       </div>
     `;
