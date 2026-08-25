@@ -1,0 +1,17 @@
+# Codex and agent-local files
+.agents/
+skills-lock.json
+
+# Temporary working directories
+.tmp-*/
+
+# Local CMS packaging and editorial source files
+CMS Package/
+content-drafts/
+projects/**/campaigns/
+projects/**/data/
+
+# Local operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini

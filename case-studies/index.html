@@ -335,6 +335,8 @@
     .projects-inner { width: 100%; max-width: var(--content-max); margin: 0 auto; }
     .projects-header { margin-bottom: clamp(2rem, 5vw, 4rem); }
     .projects-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 324px)); gap: clamp(20px, 3vw, 30px); justify-content: start; }
+    .cms-project-media { width: 100%; aspect-ratio: 1 / 1; display: block; object-fit: cover; background: #1710a5; }
+    video.cms-project-media { background: #111; }
     .project-card { width: min(100%, 324px); background: #ededed; overflow: hidden; }
     .project-carousel {
       position: relative; overflow: hidden; width: calc(100% - 24px);
@@ -843,13 +845,13 @@
   </section>
 
   <!-- ── PROJECTS ── -->
-  <section class="projects" id="projects">
+  <section class="projects" id="projects" data-cms-projects>
     <div class="projects-inner">
       <div class="projects-header">
         <div class="label">Portfolio</div>
         <h2 class="section-title">Selected <em>projects</em></h2>
       </div>
-      <div class="projects-grid">
+      <div class="projects-grid" data-cms-project-grid>
         <article class="project-card">
           <div class="project-carousel" data-project-carousel aria-label="Azzar Electric Gate Motors campaign creatives">
             <div class="project-carousel-track">
@@ -881,22 +883,20 @@
     </div>
   </section>
 
-  <!-- BLOG TEMPORARILY DISABLED
-  <section class="blog-section" id="blog">
+  <section class="blog-section" id="blog" data-cms-blog hidden>
     <div class="blog-header">
       <div>
         <div class="label">Insights</div>
         <h2 class="section-title" style="font-size:clamp(26px,3.5vw,48px)">Latest from <em>the blog</em></h2>
       </div>
-      <a href="mailto:rchitagu@gmail.com" class="blog-link">Request insights</a>
+      <a href="../blog/" class="blog-link">View all insights</a>
     </div>
     <div class="carousel-outer">
-      <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-track" id="carouselTrack" data-cms-blog-grid>
         <div class="carousel-msg">Loading posts…</div>
       </div>
     </div>
   </section>
-  -->
 
   <!-- ── TESTIMONIALS ── -->
   <section class="testimonials" id="testimonials" hidden>
@@ -1162,5 +1162,8 @@
     });
   }
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/dist/umd/supabase.min.js"></script>
+  <script src="../assets/js/supabase-config.js"></script>
+  <script src="../assets/js/cms-public.js"></script>
 </body>
 </html>

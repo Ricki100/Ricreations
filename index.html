@@ -333,6 +333,8 @@
     .projects-inner { width: 100%; max-width: var(--content-max); margin: 0 auto; }
     .projects-header { margin-bottom: clamp(2rem, 5vw, 4rem); }
     .projects-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 324px)); gap: clamp(20px, 3vw, 30px); justify-content: start; }
+    .cms-project-media { width: 100%; aspect-ratio: 1 / 1; display: block; object-fit: cover; background: #1710a5; }
+    video.cms-project-media { background: #111; }
     .project-card { width: min(100%, 324px); background: #ededed; overflow: hidden; }
     .project-carousel {
       position: relative; overflow: hidden; width: calc(100% - 24px);
@@ -401,11 +403,14 @@
     .carousel-outer::before { left: 0; background: linear-gradient(to right, white, transparent); }
     .carousel-outer::after  { right: 0; background: linear-gradient(to left, white, transparent); }
     .carousel-track {
-      display: flex; gap: clamp(1rem, 2.5vw, 1.5rem); padding: 12px var(--gutter);
+      --carousel-gap: clamp(1rem, 2.5vw, 1.5rem);
+      display: flex; padding: 12px 0;
       width: max-content;
       animation: carousel-scroll 45s linear infinite;
     }
+    .carousel-set { display: flex; gap: var(--carousel-gap); padding-left: var(--carousel-gap); }
     .carousel-track:hover { animation-play-state: paused; }
+    .carousel-track.is-static { animation: none; width: 100%; }
     @keyframes carousel-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     .blog-card {
       width: clamp(260px, 28vw, 300px); flex-shrink: 0; text-decoration: none; color: inherit;
@@ -414,15 +419,17 @@
       transition: transform 0.3s, box-shadow 0.3s;
     }
     .blog-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(26,16,176,0.12); }
-    .blog-card-img { width: 100%; height: 190px; object-fit: cover; display: block; }
-    .blog-card-img-ph { width: 100%; height: 190px; background: linear-gradient(135deg, #e8eaf6, #c5cae9); }
+    .blog-card-img { width: 100%; aspect-ratio: 16 / 9; height: auto; object-fit: cover; display: block; background: #e8eaf6; }
+    .blog-card-img-ph { width: 100%; aspect-ratio: 16 / 9; background: linear-gradient(135deg, #e8eaf6, #c5cae9); }
     .blog-card-body { padding: 22px; }
     .blog-card-meta {
-      font-size: 0.67rem; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+      font-size: 0.67rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 8px;
       display: flex; align-items: center; gap: 8px;
     }
-    .blog-card-meta span { color: var(--muted); font-weight: 400; }
+    .blog-card-meta span { color: #30343b; font-weight: 600; }
+    .blog-section .label { color: var(--blue); font-weight: 800; }
+    .blog-section .label::before { background: var(--blue); }
     .blog-card-title {
       font-size: 0.95rem; font-weight: 700; line-height: 1.4;
       display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
@@ -873,61 +880,21 @@
     </div>
   </section>
 
-  <!-- ── PROJECTS ── -->
-  <section class="projects" id="projects" hidden>
-    <div class="projects-inner">
-      <div class="projects-header">
-        <div class="label">Portfolio</div>
-        <h2 class="section-title">Selected <em>projects</em></h2>
-      </div>
-      <div class="projects-grid">
-        <article class="project-card">
-          <div class="project-carousel" data-project-carousel aria-label="Azzar Electric Gate Motors campaign creatives">
-            <div class="project-carousel-track">
-              <img class="project-carousel-slide" src="projects/azzar-electric-gate-motors/creatives/square/campaign-creative-01.jpg" alt="Azzar electric gate campaign creative 1">
-              <img class="project-carousel-slide" src="projects/azzar-electric-gate-motors/creatives/square/campaign-creative-02.jpg" alt="Azzar electric gate campaign creative 2" loading="lazy">
-              <img class="project-carousel-slide" src="projects/azzar-electric-gate-motors/creatives/square/campaign-creative-03.jpg" alt="Azzar electric gate campaign creative 3" loading="lazy">
-              <img class="project-carousel-slide" src="projects/azzar-electric-gate-motors/creatives/square/campaign-creative-04.jpg" alt="Azzar electric gate campaign creative 4" loading="lazy">
-            </div>
-            <div class="project-carousel-controls">
-              <button class="project-carousel-arrow" type="button" data-carousel-prev aria-label="Previous creative">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5 7.5 12l7 7"/></svg>
-              </button>
-              <div class="project-carousel-dots" aria-hidden="true"></div>
-              <button class="project-carousel-arrow" type="button" data-carousel-next aria-label="Next creative">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 7 7-7 7"/></svg>
-              </button>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <p class="project-card-meta">Digital campaign · Lead generation · SEO</p>
-            <h3 class="project-card-title">Azzar Electric Gate Motors</h3>
-            <p class="project-card-text">A full digital marketing build-out covering the landing page, reliable lead capture, Brevo CRM automation, content and SEO, with paid and organic campaign work documented as it progresses.</p>
-            <div class="project-card-actions">
-              <a class="project-card-link project-card-link--primary" href="projects/azzar-electric-gate-motors/case-study/azzar-electric-gate-motors-case-study.pdf" download>Download case study</a>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- BLOG TEMPORARILY DISABLED
-  <section class="blog-section" id="blog">
+  <!-- Published CMS blog posts replace the former selected-projects block. -->
+  <section class="blog-section" id="blog" data-cms-blog hidden>
     <div class="blog-header">
       <div>
         <div class="label">Insights</div>
         <h2 class="section-title" style="font-size:clamp(26px,3.5vw,48px)">Latest from <em>the blog</em></h2>
       </div>
-      <a href="mailto:rchitagu@gmail.com" class="blog-link">Request insights</a>
+      <a href="blog/" class="blog-link">View all insights</a>
     </div>
     <div class="carousel-outer">
-      <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-track" id="carouselTrack" data-cms-blog-grid>
         <div class="carousel-msg">Loading posts…</div>
       </div>
     </div>
   </section>
-  -->
 
   <!-- ── TESTIMONIALS ── -->
   <section class="testimonials" id="testimonials">
@@ -1183,5 +1150,8 @@
     });
   }
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/dist/umd/supabase.min.js"></script>
+  <script src="assets/js/supabase-config.js?v=20260825-1"></script>
+  <script src="assets/js/cms-public.js?v=20260825-3"></script>
 </body>
 </html>
