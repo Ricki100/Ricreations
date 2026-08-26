@@ -1,0 +1,7 @@
+/* All article media occupies the same full-width 1920 x 1080 proportion. */
+.post-lead-media,.post-body figure{width:100%}
+.post-media,.post-body img,.post-body video{display:block;width:100%;aspect-ratio:16/9;background:#111}
+.post-media,.post-body img{object-fit:cover}
+.post-body video{object-fit:contain}
+.post-body figure{margin-left:0;margin-right:0}
+.post-body em,.post-body i{font-style:italic!important}

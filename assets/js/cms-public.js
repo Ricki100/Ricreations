@@ -55,6 +55,18 @@
     return `<div class="${className} cms-media-placeholder" aria-hidden="true"></div>`;
   }
 
+  function cardMediaMarkup(item, className) {
+    const cover = safeUrl(item.cover_url);
+    let bodyImage = '';
+    if (!cover && item.body_html) {
+      const doc = new DOMParser().parseFromString(String(item.body_html), 'text/html');
+      bodyImage = safeUrl(doc.querySelector('img')?.getAttribute('src'));
+    }
+    const image = cover || bodyImage;
+    if (image) return `<img class="${className}" src="${escapeHtml(image)}" alt="${escapeHtml(item.title)}" loading="lazy">`;
+    return `<div class="${className} cms-media-placeholder" aria-hidden="true"></div>`;
+  }
+
   async function getClient() {
     if (!configured || !window.supabase?.createClient) return null;
     return window.supabase.createClient(config.url, config.publishableKey, {
@@ -107,7 +119,7 @@
       const posts = await fetchPublished('blog', { limit: 6 });
       if (!posts.length) return;
       const cards = posts.map((item) => `<a class="blog-card" href="blog/post.html?slug=${encodeURIComponent(item.slug)}">
-        ${mediaMarkup(item, 'blog-card-img')}
+        ${cardMediaMarkup(item, 'blog-card-img')}
         <div class="blog-card-body">
           <div class="blog-card-meta">${escapeHtml((item.tags || [])[0] || 'Insight')} <span>${new Date(item.published_at).toLocaleDateString('en-ZW', { month: 'short', year: 'numeric' })}</span></div>
           <div class="blog-card-title">${escapeHtml(item.title)}</div>
@@ -129,7 +141,7 @@
     try {
       const posts = await fetchPublished('blog');
       grid.innerHTML = posts.length ? posts.map((item) => `<article class="article-card">
-        <a href="post.html?slug=${encodeURIComponent(item.slug)}">${mediaMarkup(item, 'article-card-media')}</a>
+        <a href="post.html?slug=${encodeURIComponent(item.slug)}">${cardMediaMarkup(item, 'article-card-media')}</a>
         <div class="article-card-copy"><p class="eyebrow">${escapeHtml((item.tags || [])[0] || 'Insight')}</p><h2><a href="post.html?slug=${encodeURIComponent(item.slug)}">${escapeHtml(item.title)}</a></h2><p>${escapeHtml(item.excerpt || '')}</p></div>
       </article>`).join('') : '<p class="cms-empty">New articles are coming soon.</p>';
     } catch (_) { grid.innerHTML = '<p class="cms-empty">Articles are temporarily unavailable.</p>'; }
@@ -150,7 +162,7 @@
       article.innerHTML = `<header class="post-header"><p class="eyebrow">${escapeHtml((item.tags || []).join(' · ') || 'Insight')}</p><h1>${escapeHtml(item.title)}</h1><p class="post-deck">${escapeHtml(item.excerpt || '')}</p><time>${new Date(item.published_at).toLocaleDateString('en-ZW', { day: 'numeric', month: 'long', year: 'numeric' })}</time></header>
         <div class="post-lead-media">${mediaMarkup(item, 'post-media')}</div>
         <div class="post-body">${sanitiseRichText(item.body_html)}</div>
-        ${related.length ? `<aside class="related-posts"><div class="related-posts-header"><h2>Keep reading</h2><a href="index.html">View all articles</a></div><div class="related-posts-grid">${related.map((post) => `<a class="related-post-card" href="post.html?slug=${encodeURIComponent(post.slug)}">${mediaMarkup(post, 'related-post-media')}<span>${escapeHtml(post.title)}</span></a>`).join('')}</div></aside>` : ''}`;
+        ${related.length ? `<aside class="related-posts"><div class="related-posts-header"><h2>Keep reading</h2><a href="index.html">View all articles</a></div><div class="related-posts-grid">${related.map((post) => `<a class="related-post-card" href="post.html?slug=${encodeURIComponent(post.slug)}">${cardMediaMarkup(post, 'related-post-media')}<span>${escapeHtml(post.title)}</span></a>`).join('')}</div></aside>` : ''}`;
     } catch (_) { article.innerHTML = '<p class="cms-empty">This article could not be found.</p>'; }
   }
 
