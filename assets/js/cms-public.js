@@ -20,6 +20,18 @@
     } catch (_) { return ''; }
   }
 
+  function blogPostUrl(slug) {
+    return `/blog/${encodeURIComponent(String(slug || '').trim())}/`;
+  }
+
+  function slugFromLocation() {
+    const legacySlug = new URLSearchParams(location.search).get('slug');
+    if (legacySlug) return legacySlug;
+    const match = location.pathname.match(/\/blog\/([^/]+)\/?$/i);
+    if (!match || /^(?:index|post)\.html$/i.test(match[1])) return '';
+    try { return decodeURIComponent(match[1]); } catch (_) { return match[1]; }
+  }
+
   function activateMediaFallbacks(root) {
     root.querySelectorAll('img.blog-card-img').forEach((image) => {
       const showFallback = () => {
@@ -118,7 +130,7 @@
     try {
       const posts = await fetchPublished('blog', { limit: 6 });
       if (!posts.length) return;
-      const cards = posts.map((item) => `<a class="blog-card" href="blog/post.html?slug=${encodeURIComponent(item.slug)}">
+      const cards = posts.map((item) => `<a class="blog-card" href="${blogPostUrl(item.slug)}">
         ${cardMediaMarkup(item, 'blog-card-img')}
         <div class="blog-card-body">
           <div class="blog-card-meta">${escapeHtml((item.tags || [])[0] || 'Insight')} <span>${new Date(item.published_at).toLocaleDateString('en-ZW', { month: 'short', year: 'numeric' })}</span></div>
@@ -141,8 +153,8 @@
     try {
       const posts = await fetchPublished('blog');
       grid.innerHTML = posts.length ? posts.map((item) => `<article class="article-card">
-        <a href="post.html?slug=${encodeURIComponent(item.slug)}">${cardMediaMarkup(item, 'article-card-media')}</a>
-        <div class="article-card-copy"><p class="eyebrow">${escapeHtml((item.tags || [])[0] || 'Insight')}</p><h2><a href="post.html?slug=${encodeURIComponent(item.slug)}">${escapeHtml(item.title)}</a></h2><p>${escapeHtml(item.excerpt || '')}</p></div>
+        <a href="${blogPostUrl(item.slug)}">${cardMediaMarkup(item, 'article-card-media')}</a>
+        <div class="article-card-copy"><p class="eyebrow">${escapeHtml((item.tags || [])[0] || 'Insight')}</p><h2><a href="${blogPostUrl(item.slug)}">${escapeHtml(item.title)}</a></h2><p>${escapeHtml(item.excerpt || '')}</p></div>
       </article>`).join('') : '<p class="cms-empty">New articles are coming soon.</p>';
     } catch (_) { grid.innerHTML = '<p class="cms-empty">Articles are temporarily unavailable.</p>'; }
   }
@@ -150,7 +162,7 @@
   async function renderBlogPost() {
     const article = document.querySelector('[data-blog-post]');
     if (!article) return;
-    const slug = new URLSearchParams(location.search).get('slug');
+    const slug = slugFromLocation();
     if (!configured || !slug) { article.innerHTML = '<p class="cms-empty">Article not found.</p>'; return; }
     try {
       const [item] = await fetchPublished('blog', { slug });
@@ -158,11 +170,15 @@
       document.title = `${item.seo_title || item.title} | Ricardo Chitagu`;
       const description = document.querySelector('meta[name="description"]');
       if (description) description.content = item.seo_description || item.excerpt || '';
+      let canonical = document.querySelector('link[rel="canonical"]');
+      if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.append(canonical); }
+      canonical.href = `https://ricreations.co.za${blogPostUrl(item.slug)}`;
+      if (location.hostname === 'ricreations.co.za' && location.pathname.endsWith('/post.html')) history.replaceState({}, '', blogPostUrl(item.slug));
       const related = (await fetchPublished('blog', { limit: 4 })).filter((post) => post.slug !== item.slug).slice(0, 3);
       article.innerHTML = `<header class="post-header"><p class="eyebrow">${escapeHtml((item.tags || []).join(' · ') || 'Insight')}</p><h1>${escapeHtml(item.title)}</h1><p class="post-deck">${escapeHtml(item.excerpt || '')}</p><time>${new Date(item.published_at).toLocaleDateString('en-ZW', { day: 'numeric', month: 'long', year: 'numeric' })}</time></header>
         <div class="post-lead-media">${mediaMarkup(item, 'post-media')}</div>
         <div class="post-body">${sanitiseRichText(item.body_html)}</div>
-        ${related.length ? `<aside class="related-posts"><div class="related-posts-header"><h2>Keep reading</h2><a href="index.html">View all articles</a></div><div class="related-posts-grid">${related.map((post) => `<a class="related-post-card" href="post.html?slug=${encodeURIComponent(post.slug)}">${cardMediaMarkup(post, 'related-post-media')}<span>${escapeHtml(post.title)}</span></a>`).join('')}</div></aside>` : ''}`;
+        ${related.length ? `<aside class="related-posts"><div class="related-posts-header"><h2>Keep reading</h2><a href="/blog/">View all articles</a></div><div class="related-posts-grid">${related.map((post) => `<a class="related-post-card" href="${blogPostUrl(post.slug)}">${cardMediaMarkup(post, 'related-post-media')}<span>${escapeHtml(post.title)}</span></a>`).join('')}</div></aside>` : ''}`;
     } catch (_) { article.innerHTML = '<p class="cms-empty">This article could not be found.</p>'; }
   }
 
