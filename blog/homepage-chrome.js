@@ -1,1 +1,41 @@
-(()=>{'use strict';const root=document.documentElement;const toggle=document.querySelector('.theme-toggle');const nav=document.querySelector('nav.site-nav');const year=document.querySelector('#currentYear');const defaults={theme_mode:'light',light_background:'#f6f4ef',light_text:'#0b0b0b',light_link:'#1710a5',dark_background:'#0c0f12',dark_text:'#f4f5f6',dark_link:'#a894ff'};let settings=defaults;const resolvedSystem=()=>matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';const setTheme=theme=>{const resolved=theme==='system'?resolvedSystem():theme;const dark=resolved==='dark';root.dataset.theme=dark?'dark':'light';if(toggle){toggle.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');toggle.title=dark?'Switch to light mode':'Switch to dark mode';toggle.querySelector('span').textContent=dark?'☀':'☾'}};const installBrandVariables=values=>{let style=document.querySelector('#cmsBrandVariables');if(!style){style=document.createElement('style');style.id='cmsBrandVariables';document.head.append(style)}const rules=theme=>`--theme-bg:${values[`${theme}_background`]};--theme-text:${values[`${theme}_text`]};--theme-accent:${values[`${theme}_link`]};--theme-surface:color-mix(in srgb,${values[`${theme}_text`]} 6%,${values[`${theme}_background`]});--theme-muted:color-mix(in srgb,${values[`${theme}_text`]} 66%,${values[`${theme}_background`]});--theme-line:color-mix(in srgb,${values[`${theme}_text`]} 16%,${values[`${theme}_background`]});--theme-media:color-mix(in srgb,${values[`${theme}_text`]} 10%,${values[`${theme}_background`]})`;style.textContent=`:root{${rules('light')}}html[data-theme="dark"]{${rules('dark')}}`};const loadBranding=async()=>{const cfg=window.RICREATIONS_SUPABASE||{};if(window.supabase&&cfg.url&&cfg.publishableKey){const db=window.supabase.createClient(cfg.url,cfg.publishableKey);const{data}=await db.from(cfg.brandSettingsTable||'blog_brand_settings').select('*').eq('id','default').maybeSingle();if(data)settings={...defaults,...data}}installBrandVariables(settings);const saved=localStorage.getItem('blog-theme');setTheme(saved||settings.theme_mode||'light')};loadBranding().catch(()=>{installBrandVariables(defaults);setTheme(localStorage.getItem('blog-theme')||'light')});if(toggle)toggle.addEventListener('click',()=>{const theme=root.dataset.theme==='dark'?'light':'dark';localStorage.setItem('blog-theme',theme);setTheme(theme)});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(!localStorage.getItem('blog-theme')&&settings.theme_mode==='system')setTheme('system')});if(year)year.textContent=new Date().getFullYear();if(!nav)return;const alwaysSolid=document.body.classList.contains('blog-page');const update=()=>nav.classList.toggle('scrolled',alwaysSolid||window.scrollY>32);update();window.addEventListener('scroll',update,{passive:true})})();
+(() => {
+  'use strict';
+  const root = document.documentElement;
+  const toggle = document.querySelector('.theme-toggle');
+  const nav = document.querySelector('nav.site-nav');
+  const year = document.querySelector('#currentYear');
+  const defaults = { theme_mode: 'light', light_background: '#f6f4ef', light_text: '#0b0b0b', light_link: '#1710a5', dark_background: '#0c0f12', dark_text: '#f4f5f6', dark_link: '#a894ff' };
+  let settings = defaults;
+  const resolvedSystem = () => matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  const setTheme = (theme) => {
+    const resolved = theme === 'system' ? resolvedSystem() : theme;
+    const dark = resolved === 'dark';
+    root.dataset.theme = dark ? 'dark' : 'light';
+    if (toggle) {
+      toggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+      toggle.title = dark ? 'Switch to light mode' : 'Switch to dark mode';
+      toggle.querySelector('span').textContent = dark ? '☀' : '☾';
+    }
+  };
+  const installBrandVariables = (values) => {
+    let style = document.querySelector('#cmsBrandVariables');
+    if (!style) { style = document.createElement('style'); style.id = 'cmsBrandVariables'; document.head.append(style); }
+    const rules = (theme) => `--theme-bg:${values[`${theme}_background`]};--theme-text:${values[`${theme}_text`]};--theme-accent:${values[`${theme}_link`]};--theme-surface:color-mix(in srgb,${values[`${theme}_text`]} 6%,${values[`${theme}_background`]});--theme-muted:color-mix(in srgb,${values[`${theme}_text`]} 66%,${values[`${theme}_background`]});--theme-line:color-mix(in srgb,${values[`${theme}_text`]} 16%,${values[`${theme}_background`]});--theme-media:color-mix(in srgb,${values[`${theme}_text`]} 10%,${values[`${theme}_background`]})`;
+    style.textContent = `:root{${rules('light')}}html[data-theme="dark"]{${rules('dark')}}`;
+  };
+  const loadBranding = async () => {
+    const response = await fetch('/assets/data/cms-content.json', { cache: 'no-cache' });
+    if (response.ok) { const data = await response.json(); if (data.branding) settings = { ...defaults, ...data.branding }; }
+    installBrandVariables(settings);
+    setTheme(localStorage.getItem('blog-theme') || settings.theme_mode || 'light');
+  };
+  loadBranding().catch(() => { installBrandVariables(defaults); setTheme(localStorage.getItem('blog-theme') || 'light'); });
+  if (toggle) toggle.addEventListener('click', () => { const theme = root.dataset.theme === 'dark' ? 'light' : 'dark'; localStorage.setItem('blog-theme', theme); setTheme(theme); });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (!localStorage.getItem('blog-theme') && settings.theme_mode === 'system') setTheme('system'); });
+  if (year) year.textContent = new Date().getFullYear();
+  if (!nav) return;
+  const alwaysSolid = document.body.classList.contains('blog-page');
+  const update = () => nav.classList.toggle('scrolled', alwaysSolid || window.scrollY > 32);
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+})();

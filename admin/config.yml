@@ -1,0 +1,69 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+backend:
+  name: github
+  repo: Ricki100/Ricreations
+  branch: main
+  auth_methods: [token]
+
+media_folder: assets/uploads
+public_folder: /assets/uploads
+
+collections:
+  - name: blog
+    label: Blog Posts
+    label_singular: Blog Post
+    folder: content/blog
+    create: true
+    format: json
+    slug: "{{slug}}"
+    summary: "{{title}} — {{published_at}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: slug, label: URL slug, widget: string, pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Use lowercase words separated by hyphens'] }
+      - { name: excerpt, label: Summary, widget: text }
+      - { name: body, label: Content, widget: richtext }
+      - { name: cover_image, label: Cover image, widget: image, required: false }
+      - { name: video_url, label: Lead video, widget: file, required: false }
+      - { name: tags, label: Tags, widget: list, required: false }
+      - { name: published_at, label: Published date, widget: datetime }
+      - { name: status, label: Status, widget: select, options: [draft, published], default: draft }
+      - { name: featured, label: Featured, widget: boolean, default: false }
+      - { name: sort_order, label: Sort order, widget: number, default: 100, value_type: int }
+      - { name: seo_title, label: SEO title, widget: string, required: false }
+      - { name: seo_description, label: SEO description, widget: text, required: false }
+
+  - name: projects
+    label: Projects
+    label_singular: Project
+    folder: content/projects
+    create: true
+    format: json
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: slug, label: URL slug, widget: string }
+      - { name: excerpt, label: Description, widget: text }
+      - { name: body, label: Content, widget: richtext, required: false }
+      - { name: cover_image, label: Cover image, widget: image, required: false }
+      - { name: tags, label: Tags, widget: list, required: false }
+      - { name: external_url, label: Project URL, widget: string, required: false }
+      - { name: status, label: Status, widget: select, options: [draft, published], default: draft }
+      - { name: featured, label: Featured, widget: boolean, default: false }
+      - { name: sort_order, label: Sort order, widget: number, default: 100, value_type: int }
+
+  - name: settings
+    label: Blog Settings
+    files:
+      - name: branding
+        label: Article Colours
+        file: content/settings/blog-branding.json
+        format: json
+        fields:
+          - { name: brand_name, label: Brand name, widget: string }
+          - { name: theme_mode, label: Default appearance, widget: select, options: [light, dark, system] }
+          - { name: light_background, label: Light background, widget: color }
+          - { name: light_text, label: Light text, widget: color }
+          - { name: light_link, label: Light links, widget: color }
+          - { name: dark_background, label: Dark background, widget: color }
+          - { name: dark_text, label: Dark text, widget: color }
+          - { name: dark_link, label: Dark links, widget: color }

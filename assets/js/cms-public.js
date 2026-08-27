@@ -1,9 +1,8 @@
 (function () {
   'use strict';
 
-  const config = window.RICREATIONS_SUPABASE || {};
-  const configured = /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(config.url || '') &&
-    !String(config.publishableKey || '').startsWith('YOUR_');
+  const contentManifestUrl = '/assets/data/cms-content.json';
+  let contentManifest;
 
   function escapeHtml(value) {
     return String(value ?? '').replace(/[&<>'"]/g, (char) => ({
@@ -81,30 +80,23 @@
     return `<div class="${className} cms-media-placeholder" aria-hidden="true"></div>`;
   }
 
-  async function getClient() {
-    if (!configured || !window.supabase?.createClient) return null;
-    return window.supabase.createClient(config.url, config.publishableKey, {
-      auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
-    });
-  }
-
   async function fetchPublished(type, options = {}) {
-    const client = await getClient();
-    if (!client) return [];
-    let query = client.from('content_items').select('*').eq('type', type).eq('status', 'published')
-      .order('featured', { ascending: false }).order('sort_order', { ascending: true })
-      .order('published_at', { ascending: false });
-    if (options.slug) query = query.eq('slug', options.slug).limit(1);
-    if (options.limit) query = query.limit(options.limit);
-    const { data, error } = await query;
-    if (error) throw error;
-    return data || [];
+    if (!contentManifest) {
+      const response = await fetch(contentManifestUrl, { cache: 'no-cache' });
+      if (!response.ok) throw new Error(`Content manifest returned ${response.status}.`);
+      contentManifest = await response.json();
+    }
+    let items = type === 'project' ? contentManifest.projects || [] : contentManifest.posts || [];
+    items = items.filter((item) => item.status === 'published');
+    if (options.slug) items = items.filter((item) => item.slug === options.slug).slice(0, 1);
+    if (options.limit) items = items.slice(0, options.limit);
+    return items;
   }
 
   async function renderProjects() {
     const section = document.querySelector('[data-cms-projects]');
     const grid = document.querySelector('[data-cms-project-grid]');
-    if (!section || !grid || !configured) return;
+    if (!section || !grid) return;
     try {
       const projects = await fetchPublished('project');
       if (!projects.length) return;
@@ -128,7 +120,7 @@
   async function renderLatestPosts() {
     const section = document.querySelector('[data-cms-blog]');
     const track = document.querySelector('[data-cms-blog-grid]');
-    if (!section || !track || !configured) return;
+    if (!section || !track) return;
     try {
       const posts = await fetchPublished('blog', { limit: 6 });
       if (!posts.length) return;
@@ -151,7 +143,6 @@
   async function renderBlogIndex() {
     const grid = document.querySelector('[data-blog-index]');
     if (!grid) return;
-    if (!configured) { grid.innerHTML = '<p class="cms-empty">Connect Supabase to publish your first article.</p>'; return; }
     try {
       const posts = await fetchPublished('blog');
       grid.innerHTML = posts.length ? posts.map((item) => `<article class="article-card">
@@ -165,7 +156,7 @@
     const article = document.querySelector('[data-blog-post]');
     if (!article) return;
     const slug = slugFromLocation();
-    if (!configured || !slug) { article.innerHTML = '<p class="cms-empty">Article not found.</p>'; return; }
+    if (!slug) { article.innerHTML = '<p class="cms-empty">Article not found.</p>'; return; }
     try {
       const [item] = await fetchPublished('blog', { slug });
       if (!item) throw new Error('Not found');
