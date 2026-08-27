@@ -6,6 +6,7 @@ nav.site-nav .nav-links a{color:#fff;font-size:clamp(.62rem,1.6vw,.72rem);font-w
 nav.site-nav .nav-links a:hover{color:var(--gold)}
 nav.site-nav.scrolled .nav-links a{color:var(--blue)}
 nav.site-nav.scrolled .nav-links a:hover{color:var(--gold)}
+.home-link{position:absolute;left:var(--gutter);font-size:clamp(.62rem,1.6vw,.72rem);font-weight:700;letter-spacing:.12em;text-decoration:none;text-transform:uppercase;white-space:nowrap}
 .article-page main,.blog-page main{padding-top:var(--nav-h)}
 footer.site-footer{display:block;padding:var(--section-y) var(--gutter) max(2rem,env(safe-area-inset-bottom));background:var(--blue);border:0;color:#fff}
 .site-footer-inner{width:100%;max-width:var(--content-max);margin:0 auto}

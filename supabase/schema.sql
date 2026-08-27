@@ -91,3 +91,32 @@ drop policy if exists "Admins can delete CMS media" on storage.objects;
 create policy "Admins can delete CMS media" on storage.objects
   for delete to authenticated
   using (bucket_id = 'cms-media' and ((select auth.jwt()) -> 'app_metadata' ->> 'role') = 'admin');
+
+create table if not exists public.blog_brand_settings (
+  id text primary key default 'default' check (id = 'default'),
+  brand_name text not null default 'Ricreations',
+  theme_mode text not null default 'dark' check (theme_mode in ('light','dark','system')),
+  light_background text not null default '#f6f4ef',
+  light_text text not null default '#0b0b0b',
+  light_link text not null default '#1710a5',
+  dark_background text not null default '#0c0f12',
+  dark_text text not null default '#f4f5f6',
+  dark_link text not null default '#a894ff',
+  updated_at timestamptz not null default now(),
+  updated_by uuid references auth.users(id)
+);
+
+create index if not exists blog_brand_settings_updated_by_idx on public.blog_brand_settings(updated_by);
+
+alter table public.blog_brand_settings enable row level security;
+grant select on public.blog_brand_settings to anon, authenticated;
+grant insert, update on public.blog_brand_settings to authenticated;
+
+drop policy if exists "Public can read blog branding" on public.blog_brand_settings;
+create policy "Public can read blog branding" on public.blog_brand_settings for select to anon, authenticated using (true);
+drop policy if exists "Admins can insert blog branding" on public.blog_brand_settings;
+create policy "Admins can insert blog branding" on public.blog_brand_settings for insert to authenticated with check (((select auth.jwt()) -> 'app_metadata' ->> 'role') = 'admin' and updated_by = (select auth.uid()));
+drop policy if exists "Admins can update blog branding" on public.blog_brand_settings;
+create policy "Admins can update blog branding" on public.blog_brand_settings for update to authenticated using (((select auth.jwt()) -> 'app_metadata' ->> 'role') = 'admin') with check (((select auth.jwt()) -> 'app_metadata' ->> 'role') = 'admin' and updated_by = (select auth.uid()));
+
+insert into public.blog_brand_settings (id) values ('default') on conflict (id) do nothing;

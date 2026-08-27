@@ -21,7 +21,9 @@
   }
 
   function blogPostUrl(slug) {
-    return `/blog/${encodeURIComponent(String(slug || '').trim())}/`;
+    const inBlogDirectory = /\/blog(?:\/|$)/i.test(window.location.pathname);
+    const prefix = inBlogDirectory ? '' : 'blog/';
+    return `${prefix}post.html?slug=${encodeURIComponent(String(slug || '').trim())}`;
   }
 
   function slugFromLocation() {
