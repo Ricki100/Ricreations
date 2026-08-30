@@ -1,8 +1,9 @@
 (function () {
   'use strict';
 
-  const contentManifestUrl = '/assets/data/cms-content.json';
-  let contentManifest;
+  const config = window.RICREATIONS_SUPABASE || {};
+  const configured = /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(config.url || '') &&
+    !String(config.publishableKey || '').startsWith('YOUR_');
 
   function escapeHtml(value) {
     return String(value ?? '').replace(/[&<>'"]/g, (char) => ({
@@ -20,9 +21,7 @@
   }
 
   function blogPostUrl(slug) {
-    const inBlogDirectory = /\/blog(?:\/|$)/i.test(window.location.pathname);
-    const prefix = inBlogDirectory ? '' : 'blog/';
-    return `${prefix}post.html?slug=${encodeURIComponent(String(slug || '').trim())}`;
+    return `/blog/${encodeURIComponent(String(slug || '').trim())}/`;
   }
 
   function slugFromLocation() {
@@ -80,17 +79,26 @@
     return `<div class="${className} cms-media-placeholder" aria-hidden="true"></div>`;
   }
 
+  async function getClient() {
+    if (!configured || !window.supabase?.createClient) return null;
+    if (window.RICREATIONS_PUBLIC_CLIENT) return window.RICREATIONS_PUBLIC_CLIENT;
+    window.RICREATIONS_PUBLIC_CLIENT = window.supabase.createClient(config.url, config.publishableKey, {
+      auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
+    });
+    return window.RICREATIONS_PUBLIC_CLIENT;
+  }
+
   async function fetchPublished(type, options = {}) {
-    if (!contentManifest) {
-      const response = await fetch(contentManifestUrl, { cache: 'no-cache' });
-      if (!response.ok) throw new Error(`Content manifest returned ${response.status}.`);
-      contentManifest = await response.json();
-    }
-    let items = type === 'project' ? contentManifest.projects || [] : contentManifest.posts || [];
-    items = items.filter((item) => item.status === 'published');
-    if (options.slug) items = items.filter((item) => item.slug === options.slug).slice(0, 1);
-    if (options.limit) items = items.slice(0, options.limit);
-    return items;
+    const client = await getClient();
+    if (!client) return [];
+    let query = client.from('content_items').select('*').eq('type', type).eq('status', 'published')
+      .order('featured', { ascending: false }).order('sort_order', { ascending: true })
+      .order('published_at', { ascending: false });
+    if (options.slug) query = query.eq('slug', options.slug).limit(1);
+    if (options.limit) query = query.limit(options.limit);
+    const { data, error } = await query;
+    if (error) throw error;
+    return data || [];
   }
 
   async function renderProjects() {
@@ -166,7 +174,7 @@
       let canonical = document.querySelector('link[rel="canonical"]');
       if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.append(canonical); }
       canonical.href = `https://ricreations.co.za${blogPostUrl(item.slug)}`;
-      if (location.hostname === 'ricreations.co.za' && location.pathname.endsWith('/post.html')) history.replaceState({}, '', blogPostUrl(item.slug));
+      if (location.pathname.endsWith('/post.html')) history.replaceState({}, '', blogPostUrl(item.slug));
       const related = (await fetchPublished('blog', { limit: 4 })).filter((post) => post.slug !== item.slug).slice(0, 3);
       article.innerHTML = `<header class="post-header"><p class="eyebrow">${escapeHtml((item.tags || []).join(' · ') || 'Insight')}</p><h1>${escapeHtml(item.title)}</h1><p class="post-deck">${escapeHtml(item.excerpt || '')}</p><time>${new Date(item.published_at).toLocaleDateString('en-ZW', { day: 'numeric', month: 'long', year: 'numeric' })}</time></header>
         <div class="post-lead-media">${mediaMarkup(item, 'post-media')}</div>

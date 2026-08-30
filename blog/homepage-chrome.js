@@ -1,6 +1,7 @@
 (() => {
   'use strict';
   const root = document.documentElement;
+  const themePreferenceKey = 'blog-theme-v2';
   const toggle = document.querySelector('.theme-toggle');
   const nav = document.querySelector('nav.site-nav');
   const year = document.querySelector('#currentYear');
@@ -24,14 +25,19 @@
     style.textContent = `:root{${rules('light')}}html[data-theme="dark"]{${rules('dark')}}`;
   };
   const loadBranding = async () => {
-    const response = await fetch('/assets/data/cms-content.json', { cache: 'no-cache' });
-    if (response.ok) { const data = await response.json(); if (data.branding) settings = { ...defaults, ...data.branding }; }
+    const cfg = window.RICREATIONS_SUPABASE || {};
+    if (window.supabase && cfg.url && cfg.publishableKey) {
+      const db = window.RICREATIONS_PUBLIC_CLIENT || window.supabase.createClient(cfg.url, cfg.publishableKey, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } });
+      window.RICREATIONS_PUBLIC_CLIENT = db;
+      const { data } = await db.from(cfg.brandSettingsTable || 'blog_brand_settings').select('*').eq('id', 'default').maybeSingle();
+      if (data) settings = { ...defaults, ...data };
+    }
     installBrandVariables(settings);
-    setTheme(localStorage.getItem('blog-theme') || settings.theme_mode || 'light');
+    setTheme(localStorage.getItem(themePreferenceKey) || settings.theme_mode || 'light');
   };
-  loadBranding().catch(() => { installBrandVariables(defaults); setTheme(localStorage.getItem('blog-theme') || 'light'); });
-  if (toggle) toggle.addEventListener('click', () => { const theme = root.dataset.theme === 'dark' ? 'light' : 'dark'; localStorage.setItem('blog-theme', theme); setTheme(theme); });
-  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (!localStorage.getItem('blog-theme') && settings.theme_mode === 'system') setTheme('system'); });
+  loadBranding().catch(() => { installBrandVariables(defaults); setTheme(localStorage.getItem(themePreferenceKey) || 'light'); });
+  if (toggle) toggle.addEventListener('click', () => { const theme = root.dataset.theme === 'dark' ? 'light' : 'dark'; localStorage.setItem(themePreferenceKey, theme); setTheme(theme); });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (!localStorage.getItem(themePreferenceKey) && settings.theme_mode === 'system') setTheme('system'); });
   if (year) year.textContent = new Date().getFullYear();
   if (!nav) return;
   const alwaysSolid = document.body.classList.contains('blog-page');

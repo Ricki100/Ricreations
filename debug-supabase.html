@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Supabase Connection Debugger</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #0c0f12;
+      color: #f4f5f6;
+    }
+    .card {
+      background: #1a1f26;
+      border: 1px solid #2a3139;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .card h2 {
+      margin-top: 0;
+      color: #a894ff;
+    }
+    .status {
+      padding: 0.75rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      font-family: monospace;
+      font-size: 0.9rem;
+      word-break: break-all;
+    }
+    .status.success {
+      background: rgba(76, 175, 80, 0.2);
+      color: #4caf50;
+      border-left: 3px solid #4caf50;
+    }
+    .status.error {
+      background: rgba(244, 67, 54, 0.2);
+      color: #f44336;
+      border-left: 3px solid #f44336;
+    }
+    .status.warning {
+      background: rgba(255, 193, 7, 0.2);
+      color: #ffc107;
+      border-left: 3px solid #ffc107;
+    }
+    .status.info {
+      background: rgba(33, 150, 243, 0.2);
+      color: #2196f3;
+      border-left: 3px solid #2196f3;
+    }
+    button {
+      background: #a894ff;
+      color: #0c0f12;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background: #b3a5ff;
+    }
+    button:disabled {
+      background: #666;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    .test-item {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      border-left: 2px solid #a894ff;
+    }
+    .test-item strong {
+      color: #a894ff;
+    }
+    code {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.2rem 0.4rem;
+      border-radius: 2px;
+      font-size: 0.9rem;
+    }
+    .loading {
+      display: inline-block;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <h1>🔍 Supabase Connection Debugger</h1>
+  
+  <div class="card">
+    <h2>Configuration</h2>
+    <div id="configStatus"></div>
+  </div>
+
+  <div class="card">
+    <h2>Network Tests</h2>
+    <button id="runTests" onclick="runDiagnostics()">Run All Diagnostics</button>
+    <div id="testResults" style="margin-top: 1rem;"></div>
+  </div>
+
+  <script>
+    const cfg = window.RICREATIONS_SUPABASE || {};
+    
+    function addStatus(containerId, message, type = 'info') {
+      const container = document.getElementById(containerId);
+      const div = document.createElement('div');
+      div.className = `status ${type}`;
+      div.textContent = message;
+      container.appendChild(div);
+    }
+    
+    function displayConfig() {
+      const container = document.getElementById('configStatus');
+      
+      if (!cfg.url || !cfg.publishableKey) {
+        addStatus('configStatus', '❌ Configuration missing! Check assets/js/supabase-config.js', 'error');
+        return;
+      }
+      
+      addStatus('configStatus', `✓ URL: ${cfg.url}`, 'success');
+      addStatus('configStatus', `✓ Publishable Key: ${cfg.publishableKey.substring(0, 20)}...`, 'success');
+      addStatus('configStatus', `✓ Media Bucket: ${cfg.mediaBucket || 'cms-media'}`, 'info');
+    }
+    
+    async function testURLAccess() {
+      return new Promise((resolve) => {
+        const xhr = new XMLHttpRequest();
+        xhr.timeout = 10000;
+        
+        xhr.onload = () => {
+          addStatus('testResults', `✓ Direct URL fetch successful (status ${xhr.status})`, 'success');
+          resolve(true);
+        };
+        
+        xhr.onerror = () => {
+          addStatus('testResults', `❌ CORS or network error when accessing ${cfg.url}`, 'error');
+          resolve(false);
+        };
+        
+        xhr.ontimeout = () => {
+          addStatus('testResults', `⏱ Timeout accessing ${cfg.url} (took > 10s)`, 'warning');
+          resolve(false);
+        };
+        
+        xhr.open('GET', cfg.url, true);
+        xhr.send();
+      });
+    }
+    
+    async function testAuthEndpoint() {
+      return new Promise((resolve) => {
+        const authUrl = `${cfg.url}/auth/v1/settings`;
+        
+        const xhr = new XMLHttpRequest();
+        xhr.timeout = 10000;
+        
+        xhr.onload = () => {
+          if (xhr.status === 200) {
+            addStatus('testResults', `✓ Auth endpoint reachable`, 'success');
+            resolve(true);
+          } else {
+            addStatus('testResults', `⚠ Auth endpoint returned status ${xhr.status}`, 'warning');
+            resolve(false);
+          }
+        };
+        
+        xhr.onerror = () => {
+          addStatus('testResults', `❌ Cannot reach auth endpoint`, 'error');
+          resolve(false);
+        };
+        
+        xhr.ontimeout = () => {
+          addStatus('testResults', `⏱ Auth endpoint timeout`, 'warning');
+          resolve(false);
+        };
+        
+        xhr.open('GET', authUrl, true);
+        xhr.setRequestHeader('apikey', cfg.publishableKey);
+        xhr.send();
+      });
+    }
+    
+    async function testSupabaseClient() {
+      return new Promise(async (resolve) => {
+        try {
+          // Load Supabase library if not already loaded
+          if (!window.supabase) {
+            addStatus('testResults', '⏳ Loading Supabase library...', 'info');
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/dist/umd/supabase.min.js';
+            script.onload = () => attemptClientConnection();
+            script.onerror = () => {
+              addStatus('testResults', '❌ Failed to load Supabase library', 'error');
+              resolve(false);
+            };
+            document.head.appendChild(script);
+          } else {
+            attemptClientConnection();
+          }
+          
+          function attemptClientConnection() {
+            const client = window.supabase?.createClient?.(cfg.url, cfg.publishableKey);
+            
+            if (!client) {
+              addStatus('testResults', '❌ Supabase client creation failed', 'error');
+              resolve(false);
+              return;
+            }
+            
+            addStatus('testResults', '✓ Supabase client created successfully', 'success');
+            
+            // Try to get session
+            client.auth.getSession().then((result) => {
+              if (result.error) {
+                addStatus('testResults', `⚠ Auth error: ${result.error.message}`, 'warning');
+              } else {
+                addStatus('testResults', '✓ Auth getSession() worked (no active session yet)', 'success');
+              }
+              resolve(true);
+            }).catch((error) => {
+              addStatus('testResults', `❌ Auth error: ${error.message}`, 'error');
+              resolve(false);
+            });
+          }
+        } catch (error) {
+          addStatus('testResults', `❌ Client test error: ${error.message}`, 'error');
+          resolve(false);
+        }
+      });
+    }
+    
+    async function runDiagnostics() {
+      const button = document.getElementById('runTests');
+      button.disabled = true;
+      button.textContent = '⏳ Running diagnostics...';
+      
+      document.getElementById('testResults').innerHTML = '';
+      addStatus('testResults', 'Starting network diagnostics...', 'info');
+      
+      const tests = [
+        { name: 'URL Access', fn: testURLAccess },
+        { name: 'Auth Endpoint', fn: testAuthEndpoint },
+        { name: 'Supabase Client', fn: testSupabaseClient }
+      ];
+      
+      for (const test of tests) {
+        addStatus('testResults', `Testing: ${test.name}...`, 'info');
+        await test.fn();
+      }
+      
+      addStatus('testResults', '✓ Diagnostics complete!', 'success');
+      button.disabled = false;
+      button.textContent = 'Run All Diagnostics';
+    }
+    
+    displayConfig();
+  </script>
+</body>
+</html>
