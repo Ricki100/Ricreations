@@ -29,6 +29,7 @@ body.article-page{background:var(--article-bg);color:var(--article-text);font-fa
 .article-page .post-callout{border-color:var(--article-line);border-top-color:var(--article-accent);background:var(--article-surface)}
 .article-page .post-callout strong{color:var(--article-accent)}
 .article-page .post-body figcaption{color:var(--article-muted)}
+.article-page .post-body .article-video-embed iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:#000}
 .article-page .post-body .table-scroll{width:100%;margin:2em 0;overflow-x:auto;border:1px solid var(--article-line);border-radius:8px;background:var(--article-surface);-webkit-overflow-scrolling:touch}
 .article-page .post-body table{width:100%;min-width:560px;border-collapse:collapse;color:var(--article-text);font:400 15px/1.5 Inter,Arial,sans-serif}
 .article-page .post-body th,.article-page .post-body td{padding:14px 16px;border-right:1px solid var(--article-line);border-bottom:1px solid var(--article-line);text-align:left;vertical-align:top}
