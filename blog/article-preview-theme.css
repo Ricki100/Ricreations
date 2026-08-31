@@ -29,6 +29,13 @@ body.article-page{background:var(--article-bg);color:var(--article-text);font-fa
 .article-page .post-callout{border-color:var(--article-line);border-top-color:var(--article-accent);background:var(--article-surface)}
 .article-page .post-callout strong{color:var(--article-accent)}
 .article-page .post-body figcaption{color:var(--article-muted)}
+.article-page .post-body .table-scroll{width:100%;margin:2em 0;overflow-x:auto;border:1px solid var(--article-line);border-radius:8px;background:var(--article-surface);-webkit-overflow-scrolling:touch}
+.article-page .post-body table{width:100%;min-width:560px;border-collapse:collapse;color:var(--article-text);font:400 15px/1.5 Inter,Arial,sans-serif}
+.article-page .post-body th,.article-page .post-body td{padding:14px 16px;border-right:1px solid var(--article-line);border-bottom:1px solid var(--article-line);text-align:left;vertical-align:top}
+.article-page .post-body th{background:color-mix(in srgb,var(--article-accent) 14%,var(--article-surface));font-weight:700}
+.article-page .post-body tr:last-child td{border-bottom:0}
+.article-page .post-body th:last-child,.article-page .post-body td:last-child{border-right:0}
+.article-page .post-body tbody tr:nth-child(even){background:color-mix(in srgb,var(--article-text) 4%,transparent)}
 .article-page ::selection{background:#3f326f;color:#fff}
 @media(max-width:620px){
   .article-page .post{padding-top:38px;padding-inline:18px}
